@@ -48,8 +48,10 @@ const LoginPage = () => {
         .then((response) => {
           if (response.ok) {
             // Handle successful signup here
+            console.log("signup was successfull");
           } else {
             // Handle signup failure here
+            console.log("something went wrong ");
           }
         })
         .catch((error) => {
@@ -57,8 +59,6 @@ const LoginPage = () => {
         });
     }
   };
-
-  //Note that this assumes that your backend API has endpoints /api/login and /api/signup that accept JSON-encoded POST requests with email and password fields. You would need to modify the endpoint URLs and request data to match your specific backend API.
 
   const handleToggle = () => {
     setIsLoginPage(!isLoginPage); // toggle the isLoginPage state
