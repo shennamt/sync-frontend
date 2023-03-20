@@ -48,10 +48,10 @@ const LoginPage = () => {
         .then((response) => {
           if (response.ok) {
             // Handle successful signup here
-            console.log("signup was successfull");
+            console.log("signup was successful");
           } else {
             // Handle signup failure here
-            console.log("something went wrong ");
+            console.log("signup was not successful ");
           }
         })
         .catch((error) => {
