@@ -9,6 +9,7 @@ $card-border-radius: 5px;
 $board-bg-color: #ADD8E6;
 $navbarapp-bg-color: white;
 $list-bg-color: #ebecf0;
+$common-element-bg: rgba(255, 255, 255, .24);
 
 body {
   margin: 0;
@@ -43,6 +44,18 @@ body {
   .BoardColumns {
     display: flex;
     overflow-x: auto;
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+    }
+
+    &::-webkit-scrollbar:horizontal {
+      height: 11px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $common-element-bg;
+      border-radius: 5px;
+    }
 
     .Column {
       flex: 0 0 auto;
