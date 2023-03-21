@@ -78,6 +78,18 @@ body {
         margin: 0;
         max-height: calc(100% - #{$column-header-height} - #{$column-footer-height});
         overflow-y: auto;
+        &::-webkit-scrollbar {
+          -webkit-appearance: none;
+        }
+
+        &::-webkit-scrollbar:vertical {
+          width: 11px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: darken($list-bg-color, 15);
+          border-right: 5px solid $list-bg-color;
+        }
 
         li {
           background-color: white;
