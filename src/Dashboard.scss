@@ -43,6 +43,7 @@ body {
 
   .BoardColumns {
     display: flex;
+    margin: 0 $gap $gap;
     overflow-x: auto;
     &::-webkit-scrollbar {
       -webkit-appearance: none;
@@ -61,7 +62,9 @@ body {
       flex: 0 0 auto;
       width: 300px;
       height: calc(100% - #{$gap});
-      margin-left: $gap;
+      &:not(:first-child) {
+        margin-left: $gap;
+      }
       > * {
         background-color: $list-bg-color;
         color: #333;
