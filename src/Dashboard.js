@@ -1,11 +1,14 @@
+import React from 'react';
+
 import './Dashboard.scss'
+
+// Custom Components
+import NavAppBar from './components/NavBarApp/NavBarApp';
 
 const Dashboard = () => {
   return (
     <div className="Dashboard">
-      <nav className="NavBar App">
-        App Nav
-      </nav>
+      < NavAppBar />
 
       <nav className="NavBar Board">
         Board Nav
