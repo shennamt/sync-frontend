@@ -3,16 +3,14 @@ import React from 'react';
 import './Dashboard.scss'
 
 // Custom Components
-import NavAppBar from 'components/NavBarApp/NavBarApp';
+import NavBarApp from 'components/NavBarApp/NavBarApp';
+import NavBarBoard from 'components/NavBarBoard/NavBarBoard';
 
 const Dashboard = () => {
   return (
     <div className="Dashboard">
-      < NavAppBar />
-
-      <nav className="NavBarBoard">
-        Board Nav
-      </nav>
+      < NavBarApp />
+      < NavBarBoard />
 
       <div className="BoardColumns">
         <div className="Column">

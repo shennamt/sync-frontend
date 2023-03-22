@@ -5,7 +5,6 @@ $column-footer-height: 36px;
 $column-border-radius: 5px;
 $card-border-radius: 5px;
 
-$board-bg-color: #ADD8E6;
 $navbarapp-bg-color: white;
 $list-bg-color: #ebecf0;
 $common-element-bg: rgba(255, 255, 255, .24);
@@ -23,14 +22,6 @@ body {
   grid-template-rows: 40px 50px 1fr;
   line-height: 1.3em;
   background-color: $board-bg-color;
-
-  .NavBarBoard {
-    padding-left: $gap;
-    display: flex;
-    align-items: center;
-    background-color: $board-bg-color;
-    font-size: 1.1rem;
-  }
 
   .BoardColumns {
     display: flex;

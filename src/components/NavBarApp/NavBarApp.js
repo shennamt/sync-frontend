@@ -2,12 +2,12 @@ import React from 'react';
 
 import './NavBarApp.scss';
 
-const NavAppBar = () => {
+const NavBarApp = () => {
   return (
     <nav className="NavBarApp">
-      App Nav
+      App Bar
     </nav>
   )
 }
 
-export default NavAppBar;
+export default NavBarApp;
