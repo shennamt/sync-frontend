@@ -3,7 +3,7 @@ import React from 'react';
 import './Dashboard.scss'
 
 // Custom Components
-import NavAppBar from './components/NavBarApp/NavBarApp';
+import NavAppBar from 'components/NavBarApp/NavBarApp';
 
 const Dashboard = () => {
   return (
