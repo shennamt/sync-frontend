@@ -10,7 +10,7 @@ const Dashboard = () => {
     <div className="Dashboard">
       < NavAppBar />
 
-      <nav className="NavBar Board">
+      <nav className="NavBarBoard">
         Board Nav
       </nav>
 

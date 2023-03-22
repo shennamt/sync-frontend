@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import '_settings.scss';
 
-$gap: 10px;
 $column-header-height: 36px;
 $column-footer-height: 36px;
 $column-border-radius: 5px;
@@ -25,20 +24,12 @@ body {
   line-height: 1.3em;
   background-color: $board-bg-color;
 
-  .NavBar {
+  .NavBarBoard {
     padding-left: $gap;
     display: flex;
     align-items: center;
-
-    &.App {
-      background-color: $navbarapp-bg-color;
-      font-size: 1.5rem;
-    }
-
-    &.Board {
-      background-color: $board-bg-color;
-      font-size: 1.1rem;
-    }
+    background-color: $board-bg-color;
+    font-size: 1.1rem;
   }
 
   .BoardColumns {

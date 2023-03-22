@@ -4,7 +4,7 @@ import './NavBarApp.scss';
 
 const NavAppBar = () => {
   return (
-    <nav className="NavBar App">
+    <nav className="NavBarApp">
       App Nav
     </nav>
   )
