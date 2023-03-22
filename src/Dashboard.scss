@@ -23,7 +23,7 @@ body {
   line-height: 1.3em;
   background-color: $board-bg-color;
 
-  .BoardColumns {
+  .BoardContent {
     display: flex;
     margin: 0 $gap $gap;
     overflow-x: auto;
