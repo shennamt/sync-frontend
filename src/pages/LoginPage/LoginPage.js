@@ -23,11 +23,15 @@ const LoginPage = () => {
           <Button variant="contained" fullWidth>Login</Button>
         </div>
         <div className='forgot__link'>
-          <Link>Forgot password?</Link>
+          <Link style={{textDecoration:'none'}}>Forgot password?</Link>
         </div>
         <div className='signup__link'>
-          <p>Don't have an account? <Link> Sign Up</Link></p>
+          <p>Don't have an account? <Link style={{textDecoration:'none'}}> Sign Up</Link></p>
         </div>
+      </div>
+
+      <div className='footer'>
+      <Link style={{textDecoration:'none'}}>Terms of use</Link> | <Link style={{textDecoration:'none'}}>Privacy Policy</Link>
       </div>
     </div>
   )
