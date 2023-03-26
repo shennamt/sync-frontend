@@ -8,28 +8,28 @@ const RegisterPage = () => {
     <div className='register'>
       <div className='register__header'>
         <h1 className='sync__header'>SYNC</h1>
-        <p className='body__text'>Create your account</p>
+        <p className='body__text'>Create your account and Start Your Next Collaboration.</p>
       </div>
 
       <div className='register__body'>
-        <div className='input__firstname'>
+        <div className='input__field'>
           <TextField label="First Name" variant="outlined" size="small" placeholder="Enter your first name" fullWidth required/>
         </div>
 
-        <div className='input__lastname'>
+        <div className='input__field'>
           <TextField label="Last Name" variant="outlined" size="small" placeholder="Enter your last name" fullWidth required/>
         </div>
 
-        <div className='input__occuptation'>
+        <div className='input__field'>
           <TextField label="Occuptation" variant="outlined" size="small" placeholder="e.g. Student" fullWidth required/>
         </div>
 
-        <div className='input__email'>
+        <div className='input__field'>
           <TextField label="Email" variant="outlined" size="small" placeholder="Enter your email address" fullWidth required/>
         </div>
 
-        <div className='input__password'>
-          <TextField label="Password" variant="outlined" size="small" placeholder="Enter your password" fullWidth required/>
+        <div className='input__field'>
+          <TextField label="Password" variant="outlined" size="small" type="password" placeholder="Enter your password" fullWidth required/>
         </div>
 
         <FormControlLabel control={<Checkbox defaultChecked />} label="Keep me signed in" />
@@ -40,8 +40,8 @@ const RegisterPage = () => {
         <div className='forgot__link'>
           <Link>Forgot password?</Link>
         </div>
-        <div className='signup__link'>
-          <p>Already have an account? <Link>Sign Up</Link></p>
+        <div className='login__link'>
+          <p>Already have an account? <Link>Login</Link></p>
         </div>
       </div>
     </div>
