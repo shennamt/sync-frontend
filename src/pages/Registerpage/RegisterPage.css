@@ -32,7 +32,7 @@
 }
 
 .button {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .forgot__link {
@@ -45,4 +45,8 @@
   text-align: center;
   margin-top: 10px;
   font-size: 15px;
+}
+
+.radio__occupation {
+  margin-top: 20px;
 }
