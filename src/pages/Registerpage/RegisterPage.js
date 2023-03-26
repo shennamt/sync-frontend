@@ -55,9 +55,6 @@ const RegisterPage = () => {
         <div className='button'>
           <Button variant="contained" fullWidth>Login</Button>
         </div>
-        <div className='forgot__link'>
-          <Link>Forgot password?</Link>
-        </div>
         <div className='login__link'>
           <p>Already have an account? <Link>Login</Link></p>
         </div>
