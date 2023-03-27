@@ -4,7 +4,7 @@ import { useLogout } from 'hooks/useLogout';
 import { useAuthContext } from "hooks/useAuthContext";
 
 import './DashboardNav.css'
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import { AppBar, Toolbar, Typography, Tabs, Tab } from '@mui/material';
 
 const DashboardNav = () => {
   const { logout } = useLogout();
@@ -18,10 +18,15 @@ const DashboardNav = () => {
       <AppBar>
         <Toolbar>
           <Typography className='sync__logo'>
-            <Link to="/" style={{textDecoration:'none'}}> SYNC </Link>
+             SYNC
           </Typography>
-            {user && (
-              <Button sx={{ marginLeft: 'auto' } }color="inherit" onClick={handleClick}>Logout</Button>
+            {user && ( 
+              <Tabs sx={{ marginLeft: 'auto' }} textColor='inherit'>
+                <Link to='/' className='dashboard__link'>
+                  <Tab label='Dashboard'/>
+                </Link>
+                <Tab label='Logout' onClick={handleClick}/>
+              </Tabs>
             )}
             {!user && (
               <div>

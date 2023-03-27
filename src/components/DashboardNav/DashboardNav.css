@@ -7,9 +7,11 @@
 }
 
 a {
-  color: white;
+  color :#1976d2;
 }
 
-a:hover {
-  color: #0F4780;
+a.dashboard__link {
+  color : white;
+  text-decoration: none;
 }
+
