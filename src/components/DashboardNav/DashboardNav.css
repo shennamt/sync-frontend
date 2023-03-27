@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400;500;600;700;800;900&display=swap');
+
+.sync__logo {
+  font-family: 'Unbounded', cursive;
+  font-size: 18px;
+  color: white;
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+  color: #0F4780;
+}
