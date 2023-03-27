@@ -4,15 +4,15 @@ import "./Dashboard.scss";
 
 // Custom Components
 import NavBarApp from "components/NavBarApp";
-import NavBarBoard from "components/NavBarBoard/NavBarBoard";
-import BoardContent from "components/BoardContent/BoardContent";
+// import NavBarBoard from "components/NavBarBoard/NavBarBoard";
+// import BoardContent from "components/BoardContent/BoardContent";
 
 const Dashboard = () => {
   return (
     <div className="Dashboard">
       <NavBarApp />
-      <NavBarBoard />
-      <BoardContent />
+      {/* <NavBarBoard /> */}
+      {/* <BoardContent /> */}
     </div>
   );
 };

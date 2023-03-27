@@ -61,18 +61,19 @@ const LoginPage = () => {
         <br />
 
         <div className='button'>
-          <Button disabled={isLoading} variant="contained" fullWidth>Login</Button>
+          <Button disabled={isLoading} variant="contained" fullWidth type='subit'>Login</Button>
         </div>
 
-        <div className='forgot__link'>
-          <Link style={{textDecoration:'none'}}>Forgot password?</Link>
-        </div>
-
-        <div className='signup__link'>
-          Don't have an account? <Link to='/signup' style={{textDecoration:'none'}}> Sign Up</Link>
-        </div>
         {error && <div className="error">{error}</div>}
       </form>
+
+      <div className='forgot__link'>
+        <Link style={{textDecoration:'none'}}>Forgot password?</Link>
+      </div>
+
+      <div className='signup__link'>
+        Don't have an account? <Link to='/signup' style={{textDecoration:'none'}}> Sign Up</Link>
+      </div>
 
       <div className='footer'>
       <Link style={{textDecoration:'none'}}>Terms of use</Link> | <Link style={{textDecoration:'none'}}>Privacy Policy</Link>
