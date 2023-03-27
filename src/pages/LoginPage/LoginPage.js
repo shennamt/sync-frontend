@@ -69,7 +69,7 @@ const LoginPage = () => {
         </div>
 
         <div className='signup__link'>
-          <p>Don't have an account? <Link to='/signup'style={{textDecoration:'none'}}> Sign Up</Link></p>
+          Don't have an account? <Link to='/signup' style={{textDecoration:'none'}}> Sign Up</Link>
         </div>
         {error && <div className="error">{error}</div>}
       </form>
