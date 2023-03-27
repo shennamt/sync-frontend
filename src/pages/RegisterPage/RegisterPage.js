@@ -91,14 +91,14 @@ const RegisterPage = () => {
         <br />
 
         <div className='button'>
-          <Button disabled={isLoading} variant="contained" fullWidth>Login</Button>
+          <Button disabled={isLoading} variant="contained" fullWidth type='submit'>Login</Button>
         </div>
 
         {error && <div className="error">{error}</div>}
       </form>
 
       <div className='login__link'>
-          <p>Already have an account? <Link to="/">Login</Link></p>
+          <p>Already have an account? <Link to="/" style={{textDecoration:'none'}}>Login</Link></p>
       </div>
 
     </div>

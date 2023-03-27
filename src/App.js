@@ -3,7 +3,6 @@ import { useAuthContext } from "./hooks/useAuthContext";
 
 import Dashboard from "./pages/Dashboard";
 import LoginPage from "pages/LoginPage/LoginPage";
-// import Signup from "pages/Signup";
 import RegisterPage from "pages/RegisterPage/RegisterPage";
 
 const App = () => {
