@@ -2,38 +2,37 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
+import CssBaseLine from '@mui/material/CssBaseline';
+import { ThemeProvider, createTheme } from '@mui/material/styles'
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 
-import HomePage from "pages/HomePage/HomePage";
 import LoginPage from "pages/LoginPage/LoginPage";
 import RegisterPage from "pages/RegisterPage/RegisterPage";
+import HomePage from "pages/HomePage/HomePage";
+import ProjectPage from 'pages/ProjectPage';
 
 const App = () => {
   const { user } = useAuthContext();
+
+  const theme = createTheme({
+    palette: { mode: 'light'}
+  })
+
   return (
-    <div className="App">
+    <ThemeProvider theme={theme}>
+      <CssBaseLine />
       <BrowserRouter>
-        <div className="pages">
-          <Routes>
-            <Route
-              path="/"
-              // user is true render Dashboard else navigate to login
-              element={user ? <HomePage /> : <Navigate to="/login" />}
-            />
-            <Route
-              path="/login"
-              element={!user ? <LoginPage /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/signup"
-              element={!user ? <RegisterPage /> : <Navigate to="/" />}
-            />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/" />}/>
+          <Route path="/signup" element={!user ? <RegisterPage /> : <Navigate to="/" />}/>
+          <Route path="/" element={user ? <HomePage /> : <Navigate to="/login" />}/>
+          <Route path="/projects" element={user ? <HomePage /> : <Navigate to="/login" />}/>
+          <Route path="/projects/:projectId" element={user ? <ProjectPage /> : <Navigate to="/login" />}/>
+        </Routes>
       </BrowserRouter>
-    </div>
+    </ThemeProvider>
   );
 };
 
