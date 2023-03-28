@@ -1,13 +1,13 @@
 import React from "react";
 
-import "./Dashboard.scss";
+import './HomePage.css'
 
 // Custom Components
 import DashboardNav from "components/DashboardNav/DashboardNav";
 import BoardContent from "components/BoardContent/BoardContent";
 
 
-const Dashboard = () => {
+const HomePage = () => {
   return (
     <div className="Dashboard">
       <DashboardNav/>
@@ -16,4 +16,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default HomePage;
