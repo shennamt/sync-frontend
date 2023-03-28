@@ -9,10 +9,13 @@ const Column = () => {
       <header> Column Title </header>
       <ul className="TaskList">
         < Task />
-        {/* <li className="TaskItem"> What are you working on? </li>
+        < Task />
+        < Task />
+        < Task />
         <li className="TaskItem"> What are you working on? </li>
         <li className="TaskItem"> What are you working on? </li>
-        <li className="TaskItem"> What are you working on? </li> */}
+        <li className="TaskItem"> What are you working on? </li>
+        <li className="TaskItem"> What are you working on? </li>
       </ul>
       <footer>Add another task</footer>
   </div>
