@@ -1,9 +1,7 @@
-@import '_settings.scss';
-
 .NavBarBoard {
-  padding-left: $gap;
+  padding-left: 10px;
   display: flex;
   align-items: center;
-  background-color: $board-bg-color;
+  background-color: white;
   font-size: 1.1rem;
 }
