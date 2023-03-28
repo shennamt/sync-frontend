@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 
-import Dashboard from "./pages/Dashboard";
+import HomePage from "pages/HomePage/HomePage";
 import LoginPage from "pages/LoginPage/LoginPage";
 import RegisterPage from "pages/RegisterPage/RegisterPage";
 
@@ -15,7 +15,7 @@ const App = () => {
             <Route
               path="/"
               // user is true render Dashboard else navigate to login
-              element={user ? <Dashboard /> : <Navigate to="/login" />}
+              element={user ? <HomePage /> : <Navigate to="/login" />}
             />
             <Route
               path="/login"
