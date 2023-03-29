@@ -37,7 +37,11 @@ const SideNav = () => {
       }
     }
     getProjects()
-  }, [dispatch])
+  }, [dispatch]) // i wonder if i can remove this from dependency array
+
+  useEffect(() => {
+    console.log(projects)
+  }, [projects])
 
   const handleClick = () => {
     logout();
