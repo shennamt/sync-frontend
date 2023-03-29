@@ -6,8 +6,9 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 const HomePage = () => {
   const createProject = () => {
-    
+
   }
+  
   return (
     <div className="HomePage" style={{ display: 'flex', alignItems: 'center' }}>
       <Box>

@@ -1,8 +1,8 @@
 import axiosClient from "./axiosClient";
 
-const boardApi = {
+const projectApi = {
   create: () => axiosClient.post('projects'),
   getAll: () => axiosClient.get('projects')
 }
 
-export default boardApi;
+export default projectApi;
