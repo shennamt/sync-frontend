@@ -1,26 +1,43 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import projectApi from 'api/projectApi'
+import { setProjects } from 'redux/features/projectSlice'
 
-// import { useSelector, useDispatch } from 'react-redux'
 // import { useNavigate } from 'react-router-dom'
-import { useAuthContext } from "hooks/useAuthContext";
-import { useLogout } from 'hooks/useLogout';
+import { useAuthContext } from "hooks/useAuthContext"
+import { useLogout } from 'hooks/useLogout'
 
 import { Box, Drawer, List, ListItem, Typography, IconButton } from '@mui/material'
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined' 
-
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined'
 
 const SideNav = () => {
   // const user = useSelector((state) => state.user.value)
-  // const navigate = useNavigate();
+  // const navigate = useNavigate()
   // const logout = () => {
-  //   localStorage.removeItem('token');
+  //   localStorage.removeItem('token')
   //   Navigate('/login')
   // }
 
-  const { user } = useAuthContext();
-  const { logout } = useLogout();
+  const { user } = useAuthContext()
+  const { logout } = useLogout()
   const sidebarWidth = 250
+  const dispatch = useDispatch()
+  const projects = useSelector((state) => state.project.value)
+
+  useEffect(() => {
+    const getProjects = async () => {
+      try {
+        const res = await projectApi.getAll()
+        console.log(res)
+        dispatch(setProjects(res))
+      } catch (err) {
+        alert(err)
+      }
+    }
+    getProjects()
+  }, [dispatch])
 
   const handleClick = () => {
     logout();
