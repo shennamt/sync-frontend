@@ -54,8 +54,8 @@ const SideNav = () => {
             <Typography variant='body2' fontWeight='700' style={{ color: 'white' }}>
               {user.email}
             </Typography>
-            <IconButton>
-              <LogoutOutlinedIcon fontSize='small' onClick={handleClick} style={{ color: 'white' }}/>
+            <IconButton onClick={handleClick}>
+              <LogoutOutlinedIcon fontSize='small' style={{ color: 'white' }}/>
             </IconButton>
           </Box>
         </ListItem>

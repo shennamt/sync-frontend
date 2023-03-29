@@ -1,13 +1,24 @@
-import React from "react";
-import './HomePage.css'
-import SideNav from "components/CommonUse/SideNav";
-
-import DashboardNav from "components/DashboardNav/DashboardNav";
+import React from "react"
+import SideNav from "components/CommonUse/SideNav"
+import { Box } from "@mui/material"
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const HomePage = () => {
   return (
-    <div className="Dashboard">
+    <div className="HomePage">
       <SideNav />
+      <Box sx={{
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <LoadingButton
+          variant='outlined'
+        >
+          Click here to Start Your Next Collaboration
+        </LoadingButton>
+      </Box>
     </div>
   );
 };
