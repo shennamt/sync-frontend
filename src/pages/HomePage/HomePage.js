@@ -5,6 +5,9 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 
 const HomePage = () => {
+  const createProject = () => {
+    
+  }
   return (
     <div className="HomePage" style={{ display: 'flex', alignItems: 'center' }}>
       <Box>
@@ -17,7 +20,7 @@ const HomePage = () => {
         justifyContent: 'center',
         flex: 1
       }}>
-        <LoadingButton variant="outlined">
+        <LoadingButton variant="outlined" onClick={createProject}>
           Click here to Start Your Next Collaboration
         </LoadingButton>
       </Box>
