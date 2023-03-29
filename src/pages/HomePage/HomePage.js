@@ -3,19 +3,21 @@ import SideNav from "components/CommonUse/SideNav"
 import { Box } from "@mui/material"
 import LoadingButton from '@mui/lab/LoadingButton';
 
+
 const HomePage = () => {
   return (
-    <div className="HomePage">
-      <SideNav />
+    <div className="HomePage" style={{ display: 'flex', alignItems: 'center' }}>
+      <Box>
+        <SideNav />
+      </Box>
       <Box sx={{
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flex: 1
       }}>
-        <LoadingButton
-          variant='outlined'
-        >
+        <LoadingButton variant="outlined">
           Click here to Start Your Next Collaboration
         </LoadingButton>
       </Box>
