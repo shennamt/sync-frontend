@@ -1,6 +1,6 @@
 import authApi from "api/authApi";
 
-//authUtils.isAuthenticated() checks if the user is currently authenticated
+// authUtils.isAuthenticated() checks if the user is currently authenticated
 // by verifying their authentication token with the server.
 
 const authUtils = {
