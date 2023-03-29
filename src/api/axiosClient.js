@@ -1,11 +1,11 @@
 import axios from "axios";
 import queryString from "query-string";
 
-const baseUrl = 'http://127.0.0.1:6001'
+const baseURL = 'http://127.0.0.1:6001'
 const getToken = () => localStorage.getItem('token')
 
 const axiosClient = axios.create({
-  baseUrl,
+  baseURL,
   paramsSerializer: {
     encode: params => queryString.stringify(params)
   }

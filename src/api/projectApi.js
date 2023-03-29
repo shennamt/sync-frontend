@@ -5,4 +5,4 @@ const projectApi = {
   getAll: () => axiosClient.get('projects')
 }
 
-export default projectApi
+export default projectApi;

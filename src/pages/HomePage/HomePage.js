@@ -20,7 +20,7 @@ const HomePage = () => {
     try {
       const res = await projectApi.create()
       dispatch(setProjects([res]))
-      navigate(`/projects/${res.id}`)
+      navigate(`projects/${res.id}`)
     } catch (err) {
       alert(err)
       console.log(err)
