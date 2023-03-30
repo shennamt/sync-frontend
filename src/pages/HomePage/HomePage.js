@@ -6,6 +6,7 @@ import { AuthContext } from "context/AuthContext";
 
 const HomePage = () => {
   const { user } = useContext(AuthContext);
+
   let greeting;
   if (user && user.occupation === "professional") {
     greeting = "Hello";
@@ -31,13 +32,6 @@ const HomePage = () => {
           Click here to Start Your Next Collaboration
         </LoadingButton>
       </Box>
-
-      <br />
-      <h1>Email: {user.email}</h1>
-      <br />
-      <h1>Occupation: {user.occupation}</h1>
-      <br />
-      <p>{greeting}</p>
     </div>
   );
 };
