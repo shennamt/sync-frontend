@@ -30,7 +30,6 @@ const SideNav = () => {
     const getProjects = async () => {
       try {
         const res = await projectApi.getAll()
-        console.log(res)
         dispatch(setProjects(res))
       } catch (err) {
         alert(err)
