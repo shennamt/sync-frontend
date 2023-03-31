@@ -1,6 +1,24 @@
+---
+marp: true
+author: Aaron, Shenna, Xiang Feng
+size: 4:3
+
+---
+
 # SYNC
+Synchonise Your Next Collaboration
+
+---
+
+# Slide 2
 
 This is an app built with the MERN Stack(MongoDB, Express, React, Node).
+
+
+
+# Your slide deck
+---
+Start writing!
 
 # Purpose
 The purpose of developing this App is to create a simple project management tool for people of all ages.
