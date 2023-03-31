@@ -16,7 +16,7 @@ const LoginPage = () => {
     setPasswordErrText('')
 
     const data = new FormData(e.target)
-    const username = data.get('username').trim()
+    const username = data.get('username').trim() // remove whitespace
     const password = data.get('password').trim()
 
     let err = false
@@ -35,7 +35,7 @@ const LoginPage = () => {
     setLoading(true)
 
     try {
-      const res = await authApi.login({ username, password })
+      const res = await authApi.login({ username, password }) // returns a promise, resolves to a res obj
       setLoading(false)
       localStorage.setItem('token', res.token)
       navigate('/')
@@ -88,7 +88,7 @@ const LoginPage = () => {
           disabled={loading}
           error={passwordErrText !== ''}
           helperText={passwordErrText}
-        />
+        /> 
         <LoadingButton
           sx={{ mt: 3, mb: 2 }}
           variant='outlined'
