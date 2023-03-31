@@ -110,7 +110,6 @@ const LoginPage = () => {
       </Button>
 
       <Link style={{textDecoration:'none'}}>Terms of use</Link> | <Link style={{textDecoration:'none'}}>Privacy Policy</Link>
-
     </>
   )
 }
