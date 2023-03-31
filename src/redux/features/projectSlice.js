@@ -6,7 +6,7 @@ const initialState = { value: [] }
 // also defines a single reducer function, setProjects, which sets the value key in the state to the payload of the action.
 
 export const projectSlice = createSlice({
-  name: 'user',
+  name: 'project',
   initialState,
   reducers: {
     setProjects: (state, action) => {

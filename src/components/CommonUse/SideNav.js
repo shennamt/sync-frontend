@@ -1,9 +1,9 @@
 import React from "react";
 
 import { useSelector, useDispatch } from 'react-redux'
+// import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from "hooks/useAuthContext";
 import { useLogout } from "hooks/useLogout";
-// import { AuthContext } from "context/AuthContext";
 
 import { useEffect } from 'react'
 import { setProjects } from 'redux/features/projectSlice'
@@ -21,7 +21,13 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 
 const SideNav = () => {
-
+  // const user = useSelector((state) => state.user.value)
+  // const navigate = useNavigate();
+  // const logout = () => {
+  //   localStorage.removeItem('token');
+  //   Navigate('/login')
+  // }
+  // const { user } = useContext(AuthContext);
   const { user } = useAuthContext()
   const { logout } = useLogout()
   const sidebarWidth = 250
@@ -48,7 +54,6 @@ const SideNav = () => {
     logout();
   };
 
-  // for mode render later
   // let greeting;
   // if (user && user.occupation === "professional") {
   //   greeting = "Hello";
