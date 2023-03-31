@@ -1,10 +1,13 @@
 import React from "react";
 
-// import { useSelector, useDispatch } from 'react-redux'
-// import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import { useAuthContext } from "hooks/useAuthContext";
 import { useLogout } from "hooks/useLogout";
-import { AuthContext } from "context/AuthContext";
+// import { AuthContext } from "context/AuthContext";
+
+import { useEffect } from 'react'
+import { setProjects } from 'redux/features/projectSlice'
+import projectApi from 'api/projectApi'
 
 import {
   Box,
@@ -18,27 +21,40 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 
 const SideNav = () => {
-  // const user = useSelector((state) => state.user.value)
-  // const navigate = useNavigate();
-  // const logout = () => {
-  //   localStorage.removeItem('token');
-  //   Navigate('/login')
-  // }
-  // const { user } = useContext(AuthContext);
-  const { user } = useAuthContext();
-  const { logout } = useLogout();
-  const sidebarWidth = 250;
+
+  const { user } = useAuthContext()
+  const { logout } = useLogout()
+  const sidebarWidth = 250
+  const dispatch = useDispatch()
+  const projects = useSelector((state) => state.project.value)
+
+  useEffect(() => {
+    const getProjects = async () => {
+      try {
+        const res = await projectApi.getAll()
+        dispatch(setProjects(res))
+      } catch (err) {
+        alert(err)
+      }
+    }
+    getProjects()
+  }, [dispatch]) // i wonder if i can remove this from dependency array
+
+  useEffect(() => {
+    console.log(projects)
+  }, [projects])
 
   const handleClick = () => {
     logout();
   };
 
-  let greeting;
-  if (user && user.occupation === "professional") {
-    greeting = "Hello";
-  } else {
-    greeting = "Goodbye";
-  }
+  // for mode render later
+  // let greeting;
+  // if (user && user.occupation === "professional") {
+  //   greeting = "Hello";
+  // } else {
+  //   greeting = "Goodbye";
+  // }
 
   return (
     <Drawer
