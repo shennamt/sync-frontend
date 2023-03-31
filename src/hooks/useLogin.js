@@ -9,7 +9,6 @@ export const useLogin = () => {
   const login = async (email, password, id) => {
     setIsLoading(true);
     setError(null);
-
     const response = await fetch(`http://localhost:6001/api/user/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
