@@ -1,13 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { Box } from "@mui/material"
+import LoadingButton from '@mui/lab/LoadingButton'
+import { useDispatch } from "react-redux"
 import { setProjects } from "redux/features/projectSlice";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 import projectApi from "api/projectApi";
-
-import SideNav from "components/CommonUse/SideNav";
-import { Box } from "@mui/material";
-import LoadingButton from "@mui/lab/LoadingButton";
 
 const HomePage = () => {
 
@@ -28,40 +26,31 @@ const HomePage = () => {
     try {
       const res = await projectApi.create();
       dispatch(setProjects([res]));
-      console.log(`${res.user}`);
-      navigate(`/projects/${res.user}`);
+      navigate(`/projects/${res.id}`);
     } catch (err) {
       alert(err);
-      console.log(err);
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   return (
-    <div className="HomePage" style={{ display: "flex", alignItems: "center" }}>
-      <Box>
-        <SideNav />
-      </Box>
-      <Box
-        sx={{
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flex: 1
-        }}
+    <Box sx={{
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}>
+      <LoadingButton
+        variant='outlined'
+        color='success'
+        onClick={createProject}
+        loading={loading}
       >
-         <LoadingButton
-          variant="outlined"
-          onClick={createProject}
-          loading={loading}
-        >
-          Click here to Start Your Next Collaboration
-        </LoadingButton>
-      </Box>
-    </div>
-  );
-};
+        Click here to Sync Your Next Collaboration
+      </LoadingButton>
+    </Box>
+  )
+}
 
 export default HomePage;

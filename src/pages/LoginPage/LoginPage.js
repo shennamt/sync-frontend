@@ -1,85 +1,117 @@
-import React from 'react'
-import { useState } from "react";
-import { useLogin } from 'hooks/useLogin';
-import { Link } from "react-router-dom";
-import './LoginPage.css'
-import {
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Button,
-} from '@mui/material'
-
+import { Box, Button, TextField } from '@mui/material'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import LoadingButton from '@mui/lab/LoadingButton'
+import authApi from 'api/authApi'
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { login, error, isLoading } = useLogin();
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
+  const [usernameErrText, setUsernameErrText] = useState('')
+  const [passwordErrText, setPasswordErrText] = useState('')
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    setUsernameErrText('')
+    setPasswordErrText('')
 
-    await login(email, password);
-  };
+    const data = new FormData(e.target)
+    const username = data.get('username').trim() // remove whitespace
+    const password = data.get('password').trim()
+
+    let err = false
+
+    if (username === '') {
+      err = true
+      setUsernameErrText('Please fill this field')
+    }
+    if (password === '') {
+      err = true
+      setPasswordErrText('Please fill this field')
+    }
+
+    if (err) return
+
+    setLoading(true)
+
+    try {
+      const res = await authApi.login({ username, password }) // returns a promise, resolves to a res obj
+      setLoading(false)
+      localStorage.setItem('token', res.token)
+      navigate('/')
+    } catch (err) {
+      const errors = err.data.errors
+      errors.forEach(e => {
+        if (e.param === 'username') {
+          setUsernameErrText(e.msg)
+        }
+        if (e.param === 'password') {
+          setPasswordErrText(e.msg)
+        }
+      })
+      setLoading(false)
+    }
+  }
 
   return (
-    <div className='login'>
-      <div className='login__header'>
+    <>
+      <Box>
         <h1 className='sync__header'>SYNC</h1>
         <p className='body__text'>Welcome back</p>
-      </div>
+      </Box>
 
-      <form className='login__body' onSubmit={handleSubmit}>
-        <div className='input__field__email'>
-          <TextField
-            label="Email"
-            variant="outlined"
-            size="small"
-            placeholder="Enter email adress"
-            fullWidth
-            required
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-          />
-        </div>
+      <Box
+        component='form'
+        sx={{ mt: 1 }}
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        <TextField
+          margin='normal'
+          required
+          fullWidth
+          id='username'
+          label='Username'
+          name='username'
+          disabled={loading}
+          error={usernameErrText !== ''}
+          helperText={usernameErrText}
+        />
+        <TextField
+          margin='normal'
+          required
+          fullWidth
+          id='password'
+          label='Password'
+          name='password'
+          type='password'
+          disabled={loading}
+          error={passwordErrText !== ''}
+          helperText={passwordErrText}
+        /> 
+        <LoadingButton
+          sx={{ mt: 3, mb: 2 }}
+          variant='outlined'
+          fullWidth
+          color='success'
+          type='submit'
+          loading={loading}
+        >
+          Login
+        </LoadingButton>
+      </Box>
 
-        <div className='input__field__password'>
-          <TextField
-            label="Password"
-            variant="outlined"
-            size="small" 
-            type= "password"
-            placeholder="Enter password"
-            fullWidth
-            required
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-          />
-        </div>
+      <Button
+        component={Link}
+        to='/signup'
+        sx={{ textTransform: 'none' }}
+      >
+        Don't have an account? Signup
+      </Button>
 
-        <FormControlLabel control={<Checkbox defaultChecked />} label="Keep me signed in" />
-        <br />
-
-        <div className='button'>
-          <Button disabled={isLoading} variant="contained" fullWidth type='subit'>Login</Button>
-        </div>
-
-        {error && <div className="error">{error}</div>}
-      </form>
-
-      <div className='forgot__link'>
-        <Link style={{textDecoration:'none'}}>Forgot password?</Link>
-      </div>
-
-      <div className='signup__link'>
-        Don't have an account? <Link to='/signup' style={{textDecoration:'none'}}> Sign Up</Link>
-      </div>
-
-      <div className='footer'>
       <Link style={{textDecoration:'none'}}>Terms of use</Link> | <Link style={{textDecoration:'none'}}>Privacy Policy</Link>
-      </div>
-    </div>
+    </>
   )
 }
 
-export default LoginPage;
+export default LoginPage
