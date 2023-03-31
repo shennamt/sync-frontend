@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useSignup } from 'hooks/useSignup';
 import './RegisterPage.css'
 import {
   TextField,
@@ -17,7 +16,7 @@ import FormLabel from '@mui/material/FormLabel';
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signup, error, isLoading } = useSignup();
+  // const { signup, error, isLoading } = useSignup();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
