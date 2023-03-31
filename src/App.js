@@ -10,7 +10,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 
 import LoginPage from "pages/LoginPage/LoginPage";
 import RegisterPage from "pages/RegisterPage/RegisterPage";
-import HomePage from "pages/HomePage/HomePage";
+import HomePage from "pages/HomePage";
 import ProjectPage from 'pages/ProjectPage';
 
 const App = () => {
