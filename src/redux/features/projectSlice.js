@@ -7,7 +7,11 @@ export const projectSlice = createSlice({
   initialState,
   reducers: {
     setProjects: (state, action) => {
-      state.value = action.payload; // modify the draft
+      if (action.payload) {
+        state.value = action.payload;
+      } else {
+        state.value = {}
+      }
     }
   }
 })

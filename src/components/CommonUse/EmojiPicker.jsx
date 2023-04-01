@@ -41,7 +41,7 @@ const EmojiPicker = (props) => {
           zIndex: "9999"
         }}
       >
-        <Picker theme="light" onSelect={selectEmoji} showPreview={false} />
+        {/* <Picker theme="light" onSelect={selectEmoji} showPreview={false} /> */}
       </Box>
     </Box>
   );

@@ -1,11 +1,11 @@
 import axiosClient from "./axiosClient";
 
-const sectionApi = {
-  create: (projectId) => axiosClient.post(`projects/${projectId}/sections`),
-  update: (projectId, sectionId, params) =>
-    axiosClient.put(`projects/${projectId}/sections/${sectionId}`, params),
-  delete: (projectId, sectionId) =>
-    axiosClient.delete(`projects/${projectId}/sections/${sectionId}`)
+const columnsApi = {
+  create: (projectId) => axiosClient.post(`projects/${projectId}/column`),
+  update: (projectId, columnId, params) =>
+    axiosClient.put(`projects/${projectId}/columns/${columnId}`, params),
+  delete: (projectId, columnId) =>
+    axiosClient.delete(`projects/${projectId}/columns/${columnId}`)
 };
 
-export default sectionApi;
+export default columnsApi;

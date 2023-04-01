@@ -42,14 +42,15 @@ const SideNav = () => {
     };
     getProjects();
   }, [dispatch]);
-
-  useEffect(() => {
-    const activeItem = projects.findIndex((e) => e.id === projectId);
-    if (projects.length > 0 && projectId === undefined) {
-      navigate(`/projects/${projects[0].id}`);
-    }
-    setActiveIndex(activeItem);
-  }, [projects, projectId, navigate]);
+console.log("SAFE");
+  // useEffect(() => {
+  //   const activeItem = projects.findIndex((e) => e.id === projectId);
+  //   if (projects.length > 0 && projectId === undefined) {
+  //     console.log("IM HERE")
+  //     navigate(`/projects/${projects[0].id}`);
+  //   }
+  //   setActiveIndex(activeItem);
+  // }, [projects, projectId, navigate]);
 
   const logout = () => {
     localStorage.removeItem("token");
