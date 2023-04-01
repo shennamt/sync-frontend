@@ -7,7 +7,7 @@ export const favouriteSlice = createSlice({
   initialState,
   reducers: {
     setFavouriteList: (state, action) => {
-      state.value = action.payload;
+      state.value = action.payload; // modify the draft
     }
   }
 });
