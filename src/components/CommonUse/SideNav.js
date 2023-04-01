@@ -7,9 +7,6 @@ import assets from "../../assets/index";
 import projectApi from "../../api/projectApi";
 import { setProjects } from "../../redux/features/projectSlice";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { useEffect } from "react";
-import { setProjects } from "redux/features/projectSlice";
-import projectApi from "api/projectApi";
 import FavouriteList from "./FavouriteList";
 
 import {
@@ -26,7 +23,7 @@ import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 
 const SideNav = () => {
   const user = useSelector((state) => state.user.value);
-  const boards = useSelector((state) => state.board.value);
+  const projects = useSelector((state) => state.project.value);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { projectId } = useParams();
@@ -37,7 +34,7 @@ const SideNav = () => {
   useEffect(() => {
     const getProjects = async () => {
       try {
-        const res = await projectsApi.getAll();
+        const res = await projectApi.getAll();
         dispatch(setProjects(res));
       } catch (err) {
         alert(err);
@@ -48,7 +45,7 @@ const SideNav = () => {
 
   useEffect(() => {
     const activeItem = projects.findIndex((e) => e.id === projectId);
-    if (project.length > 0 && projectId === undefined) {
+    if (projects.length > 0 && projectId === undefined) {
       navigate(`/projects/${projects[0].id}`);
     }
     setActiveIndex(activeItem);
@@ -60,7 +57,7 @@ const SideNav = () => {
   };
 
   const onDragEnd = async ({ source, destination }) => {
-    const newList = [...boards];
+    const newList = [...projects];
     const [removed] = newList.splice(source.index, 1);
     newList.splice(destination.index, 0, removed);
 
@@ -81,6 +78,17 @@ const SideNav = () => {
   // } else {
   //   greeting = "Goodbye";
   // }
+
+  const addProject = async () => {
+    try {
+      const res = await projectApi.create();
+      const newList = [res, ...projects];
+      dispatch(setProjects(newList));
+      navigate(`/projects/${res.id}`);
+    } catch (err) {
+      alert(err);
+    }
+  };
 
   return (
     <Drawer

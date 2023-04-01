@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Picker } from "emoji-mart";
 
-import "emoji-mart/css/emoji-mart.css";
+// import "emoji-mart/css/emoji-mart.css";
 
 const EmojiPicker = (props) => {
   const [selectedEmoji, setSelectedEmoji] = useState();

@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import projectApi from "../api/projectApi";
-import EmojiPicker from "../components/common/EmojiPicker";
-import Kanban from "../components/common/Kanban";
+import EmojiPicker from "components/CommonUse/EmojiPicker";
+import Kanban from "components/CommonUse/Kanban";
 import { setProjects } from "../redux/features/projectSlice";
 import { setFavouriteList } from "../redux/features/favouriteSlice";
 
@@ -44,7 +44,7 @@ const Project = () => {
   }, [projectId]);
 
   const onIconChange = async (newIcon) => {
-    let temp = [...projectss];
+    let temp = [...projects];
     const index = temp.findIndex((e) => e.id === projectId);
     temp[index] = { ...temp[index], icon: newIcon };
 
@@ -73,14 +73,12 @@ const Project = () => {
     setTitle(newTitle);
 
     let temp = [...projects];
-    const index = temp.findIndex((e) => e.id === projectsId);
+    const index = temp.findIndex((e) => e.id === projectId);
     temp[index] = { ...temp[index], title: newTitle };
 
     if (isFavourite) {
       let tempFavourite = [...favouriteList];
-      const favouriteIndex = tempFavourite.findIndex(
-        (e) => e.id === projectsId
-      );
+      const favouriteIndex = tempFavourite.findIndex((e) => e.id === projectId);
       tempFavourite[favouriteIndex] = {
         ...tempFavourite[favouriteIndex],
         title: newTitle

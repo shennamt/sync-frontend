@@ -10,7 +10,7 @@ const FavouriteList = () => {
   const dispatch = useDispatch();
   const list = useSelector((state) => state.favourites.value);
   const [activeIndex, setActiveIndex] = useState(0);
-  const { boardId } = useParams();
+  const { projectId } = useParams();
 
   useEffect(() => {
     const getProjects = async () => {
