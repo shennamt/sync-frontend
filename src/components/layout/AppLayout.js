@@ -15,6 +15,7 @@ const AppLayout = () => {
   useEffect(() => {
     const checkAuth = async () => {
       const user = await authUtils.isAuthenticated();
+      console.log("user", user); // TODO: remove before flight
       if (!user) {
         navigate("/login");
       } else {

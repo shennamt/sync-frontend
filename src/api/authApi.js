@@ -4,7 +4,7 @@ import axiosClient from "./axiosClient";
 const authApi = {
   signup: (params) => axiosClient.post("api/user/signup", params), // accept params obj as an argument
   login: (params) => axiosClient.post("api/user/login", params), // which is passed as a JSON payload
-  verifyToken: () => axiosClient.post("api/user/verify-token")
+  verifyToken: (params) => axiosClient.post("api/user/verify-token", params)
 };
 
 export default authApi;

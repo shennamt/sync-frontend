@@ -5,15 +5,19 @@ import authApi from "api/authApi";
 
 const authUtils = {
   isAuthenticated: async () => {
-    const token = localStorage.getItem('token')
-    if (!token) return false
+    const token = localStorage.getItem("token");
+
+    if (!token) return false;
     try {
-      const res = await authApi.verifyToken()
-      return res.user
-    } catch {
-      return false
+      // console.log("authUtils: token\n", token);
+
+      const res = await authApi.verifyToken({ token });
+      return res.user;
+    } catch (e) {
+      console.error(e);
+      return false;
     }
   }
-}
+};
 
 export default authUtils;

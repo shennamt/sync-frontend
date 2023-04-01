@@ -38,6 +38,11 @@ const LoginPage = () => {
       const res = await authApi.login({ email, password }); // returns a promise, resolves to a res obj
       setLoading(false);
       localStorage.setItem("token", res.token);
+      // console.log(
+      //   "LoginPage: localStorage.getItem\n",
+      //   localStorage.getItem("token")
+      // );
+      console.log("HELLO IM HERE"); // TODO: remove before flight
       navigate("/projects");
       console.log("LoginPage: here");
     } catch (err) {
@@ -68,6 +73,7 @@ const LoginPage = () => {
           id="email"
           label="Email"
           name="email"
+          value={"yeo@test.com"}
           disabled={loading}
           error={emailErrText !== ""}
           helperText={emailErrText}
@@ -80,6 +86,7 @@ const LoginPage = () => {
           label="Password"
           name="password"
           type="password"
+          value={11111111}
           disabled={loading}
           error={passwordErrText !== ""}
           helperText={passwordErrText}
