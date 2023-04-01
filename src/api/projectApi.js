@@ -1,14 +1,15 @@
-import axiosClient from './axiosClient'
+import axiosClient from "./axiosClient";
 
 const projectApi = {
-  create: () => axiosClient.post('boards'),
-  getAll: () => axiosClient.get('boards'),
-  updatePositoin: (params) => axiosClient.put('boards', params),
-  getOne: (id) => axiosClient.get(`boards/${id}`),
-  delete: (id) => axiosClient.delete(`boards/${id}`),
-  update: (id, params) => axiosClient.put(`boards/${id}`, params),
-  getFavourites: () => axiosClient.get('boards/favourites'),
-  updateFavouritePosition: (params) => axiosClient.put('boards/favourites', params)
-}
+  create: () => axiosClient.post("projects"),
+  getAll: () => axiosClient.get("projects"),
+  updatePositoin: (params) => axiosClient.put("projects", params),
+  getOne: (id) => axiosClient.get(`projects/${id}`),
+  delete: (id) => axiosClient.delete(`projects/${id}`),
+  update: (id, params) => axiosClient.put(`projects/${id}`, params),
+  getFavourites: () => axiosClient.get("projects/favourites"),
+  updateFavouritePosition: (params) =>
+    axiosClient.put("projects/favourites", params)
+};
 
-export default projectApi
+export default projectApi;
