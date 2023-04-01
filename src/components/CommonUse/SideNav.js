@@ -10,7 +10,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect } from "react";
 import { setProjects } from "redux/features/projectSlice";
 import projectApi from "api/projectApi";
-// import FavouriteList from './FavouriteList'
+import FavouriteList from "./FavouriteList";
 
 import {
   Box,
