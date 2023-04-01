@@ -1,13 +1,16 @@
 import React from "react";
 
-import { useSelector, useDispatch } from 'react-redux'
-// import { useNavigate } from 'react-router-dom'
-import { useAuthContext } from "hooks/useAuthContext";
-import { useLogout } from "hooks/useLogout";
-
-import { useEffect } from 'react'
-import { setProjects } from 'redux/features/projectSlice'
-import projectApi from 'api/projectApi'
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import assets from "../../assets/index";
+import projectApi from "../../api/projectApi";
+import { setProjects } from "../../redux/features/projectSlice";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { useEffect } from "react";
+import { setProjects } from "redux/features/projectSlice";
+import projectApi from "api/projectApi";
+// import FavouriteList from './FavouriteList'
 
 import {
   Box,
@@ -15,43 +18,61 @@ import {
   List,
   ListItem,
   Typography,
-  IconButton
+  IconButton,
+  ListItemButton
 } from "@mui/material";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 
 const SideNav = () => {
-  // const user = useSelector((state) => state.user.value)
-  // const navigate = useNavigate();
-  // const logout = () => {
-  //   localStorage.removeItem('token');
-  //   Navigate('/login')
-  // }
-  // const { user } = useContext(AuthContext);
-  const { user } = useAuthContext()
-  const { logout } = useLogout()
-  const sidebarWidth = 250
-  const dispatch = useDispatch()
-  const projects = useSelector((state) => state.project.value)
+  const user = useSelector((state) => state.user.value);
+  const boards = useSelector((state) => state.board.value);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { projectId } = useParams();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const sidebarWidth = 250;
 
   useEffect(() => {
     const getProjects = async () => {
       try {
-        const res = await projectApi.getAll()
-        dispatch(setProjects(res))
+        const res = await projectsApi.getAll();
+        dispatch(setProjects(res));
       } catch (err) {
-        alert(err)
+        alert(err);
       }
-    }
-    getProjects()
-  }, [dispatch]) // i wonder if i can remove this from dependency array
+    };
+    getProjects();
+  }, [dispatch]);
 
   useEffect(() => {
-    console.log(projects)
-  }, [projects])
+    const activeItem = projects.findIndex((e) => e.id === projectId);
+    if (project.length > 0 && projectId === undefined) {
+      navigate(`/projects/${projects[0].id}`);
+    }
+    setActiveIndex(activeItem);
+  }, [projects, projectId, navigate]);
 
-  const handleClick = () => {
-    logout();
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  const onDragEnd = async ({ source, destination }) => {
+    const newList = [...boards];
+    const [removed] = newList.splice(source.index, 1);
+    newList.splice(destination.index, 0, removed);
+
+    const activeItem = newList.findIndex((e) => e.id === projectId);
+    setActiveIndex(activeItem);
+    dispatch(setProjects(newList));
+
+    try {
+      await projectApi.updatePositoin({ projects: newList });
+    } catch (err) {
+      alert(err);
+    }
   };
 
   // let greeting;
@@ -77,7 +98,7 @@ const SideNav = () => {
         sx={{
           width: sidebarWidth,
           height: "100vh",
-          backgroundColor: "#1976d2"
+          backgroundColor: assets.colors.secondary
         }}
       >
         <ListItem>
@@ -89,37 +110,16 @@ const SideNav = () => {
               justifyContent: "space-between"
             }}
           >
-            <Typography
-              variant="body2"
-              fontWeight="700"
-              style={{ color: "white" }}
-            >
-              {user.email}
+            <Typography variant="body2" fontWeight="700">
+              {user.username}
             </Typography>
-            <IconButton onClick={handleClick}>
-              <LogoutOutlinedIcon fontSize="small" style={{ color: "white" }} />
+            <IconButton onClick={logout}>
+              <LogoutOutlinedIcon fontSize="small" />
             </IconButton>
           </Box>
         </ListItem>
         <Box sx={{ paddingTop: "10px" }} />
-        <ListItem>
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}
-          >
-            <Typography
-              variant="body2"
-              fontWeight="700"
-              style={{ color: "white" }}
-            >
-              {" Mode: " + user.occupation}
-            </Typography>
-          </Box>
-        </ListItem>
+        <FavouriteList />
         <Box sx={{ paddingTop: "10px" }} />
         <ListItem>
           <Box
@@ -130,37 +130,58 @@ const SideNav = () => {
               justifyContent: "space-between"
             }}
           >
-            <Typography
-              variant="body2"
-              fontWeight="700"
-              style={{ color: "white" }}
-            >
-              Favourites
-            </Typography>
-          </Box>
-        </ListItem>
-        <Box sx={{ paddingTop: "10px" }} />
-        <ListItem>
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}
-          >
-            <Typography
-              variant="body2"
-              fontWeight="700"
-              style={{ color: "white" }}
-            >
+            <Typography variant="body2" fontWeight="700">
               Private
             </Typography>
-            <IconButton>
-              <AddBoxOutlinedIcon fontSize="small" style={{ color: "white" }} />
+            <IconButton onClick={addProject}>
+              <AddBoxOutlinedIcon fontSize="small" />
             </IconButton>
           </Box>
         </ListItem>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable
+            key={"list-project-droppable-key"}
+            droppableId={"list-project-droppable"}
+          >
+            {(provided) => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                {projects.map((item, index) => (
+                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                    {(provided, snapshot) => (
+                      <ListItemButton
+                        ref={provided.innerRef}
+                        {...provided.dragHandleProps}
+                        {...provided.draggableProps}
+                        selected={index === activeIndex}
+                        component={Link}
+                        to={`/projects/${item.id}`}
+                        sx={{
+                          pl: "20px",
+                          cursor: snapshot.isDragging
+                            ? "grab"
+                            : "pointer!important"
+                        }}
+                      >
+                        <Typography
+                          variant="body2"
+                          fontWeight="700"
+                          sx={{
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis"
+                          }}
+                        >
+                          {item.icon} {item.title}
+                        </Typography>
+                      </ListItemButton>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </List>
     </Drawer>
   );
