@@ -9,12 +9,17 @@ const authUtils = {
 
     if (!token) return false;
     try {
-      // console.log("authUtils: token\n", token);
+      console.log("authUtils ln 12: typeof token\n", typeof token);
 
-      const res = await authApi.verifyToken({ token });
-      return res.user;
+      const res = await authApi.verifyToken({
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      // const res = await authApi.verifyToken(token);
+      console.log("authUtils: res -", res);
+      return res.email;
     } catch (e) {
-      console.error(e);
+      console.log("authUtils: e -", e);
+      // console.error(e);
       return false;
     }
   }
