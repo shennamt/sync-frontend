@@ -20,13 +20,16 @@ const HomePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-
+  console.log("hello")
   const createProject = async () => {
+    console.log("res")
     setLoading(true);
     try {
       const res = await projectApi.create();
       dispatch(setProjects([res]));
-      navigate(`/projects/${res.id}`);
+      console.log("res")
+      console.log(res)
+      navigate(`/projects/${res._id}`);
     } catch (err) {
       alert(err);
     } finally {

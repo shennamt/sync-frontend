@@ -3,20 +3,20 @@ import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import { Box, IconButton, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import projectApi from "../api/projectApi";
 import EmojiPicker from "components/CommonUse/EmojiPicker";
 import Kanban from "components/CommonUse/Kanban";
-import { setProjects } from "../redux/features/projectSlice";
-import { setFavouriteList } from "../redux/features/favouriteSlice";
+// import { setProjects } from "../redux/features/projectSlice";
+// import { setFavouriteList } from "../redux/features/favouriteSlice";
 
 let timer;
 const timeout = 500;
 
 const Project = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
   const { projectId } = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -24,25 +24,29 @@ const Project = () => {
   const [isFavourite, setIsFavourite] = useState(false);
   const [icon, setIcon] = useState("");
 
-  const projects = useSelector((state) => state.projects.value);
-  const favouriteList = useSelector((state) => state.favourites.value);
+  const [projects, setProjects] = useState([])
+  // const projects = await 
+  //  useSelector((state) => {
+  //   console.log("state");
+  //   console.log(state);
+  //   return state.projects.value});
+  const favouriteList = []//useSelector((state) => state.favourites.value);
 
-  useEffect(() => {
-    const getProject = async () => {
-      try {
-        const res = await projectApi.getOne(projectId);
-        setTitle(res.title);
-        setDescription(res.description);
-        setSections(res.sections);
-        setIsFavourite(res.favourite);
-        setIcon(res.icon);
-      } catch (err) {
-        alert(err);
-      }
-    };
-    getProject();
-  }, [projectId]);
-
+  // useEffect((projectId) => {
+  //   const getProject = async (projectId) => {
+  //     try {
+  //       const res = await projectApi.getOne(projectId);
+  //       setTitle(res.title);
+  //       setDescription(res.description);
+  //       setSections(res.sections);
+  //       setIsFavourite(res.favourite);
+  //       setIcon(res.icon);
+  //     } catch (err) {
+  //       alert(err);
+  //     }
+  //   };
+  //   // getProject(projectId);
+  // }, [projectId]);
   const onIconChange = async (newIcon) => {
     let temp = [...projects];
     const index = temp.findIndex((e) => e.id === projectId);
@@ -55,11 +59,11 @@ const Project = () => {
         ...tempFavourite[favouriteIndex],
         icon: newIcon
       };
-      dispatch(setFavouriteList(tempFavourite));
+      // dispatch(setFavouriteList(tempFavourite));
     }
 
     setIcon(newIcon);
-    dispatch(setProjects(temp));
+    // dispatch(setProjects(temp));
     try {
       await projectApi.update(projectId, { icon: newIcon });
     } catch (err) {
@@ -67,35 +71,35 @@ const Project = () => {
     }
   };
 
-  const updateTitle = async (e) => {
-    clearTimeout(timer);
-    const newTitle = e.target.value;
-    setTitle(newTitle);
+  const updateTitle = async (e) => {}
+  //   clearTimeout(timer);
+  //   const newTitle = e.target.value;
+  //   setTitle(newTitle);
 
-    let temp = [...projects];
-    const index = temp.findIndex((e) => e.id === projectId);
-    temp[index] = { ...temp[index], title: newTitle };
+  //   let temp = [...projects];
+  //   const index = temp.findIndex((e) => e.id === projectId);
+  //   temp[index] = { ...temp[index], title: newTitle };
 
-    if (isFavourite) {
-      let tempFavourite = [...favouriteList];
-      const favouriteIndex = tempFavourite.findIndex((e) => e.id === projectId);
-      tempFavourite[favouriteIndex] = {
-        ...tempFavourite[favouriteIndex],
-        title: newTitle
-      };
-      dispatch(setFavouriteList(tempFavourite));
-    }
+  //   if (isFavourite) {
+  //     let tempFavourite = [...favouriteList];
+  //     const favouriteIndex = tempFavourite.findIndex((e) => e.id === projectId);
+  //     tempFavourite[favouriteIndex] = {
+  //       ...tempFavourite[favouriteIndex],
+  //       title: newTitle
+  //     };
+  //     dispatch(setFavouriteList(tempFavourite));
+  //   }
 
-    dispatch(setProjects(temp));
+  //   dispatch(setProjects(temp));
 
-    timer = setTimeout(async () => {
-      try {
-        await projectApi.update(projectId, { title: newTitle });
-      } catch (err) {
-        alert(err);
-      }
-    }, timeout);
-  };
+  //   timer = setTimeout(async () => {
+  //     try {
+  //       await projectApi.update(projectId, { title: newTitle });
+  //     } catch (err) {
+  //       alert(err);
+  //     }
+  //   }, timeout);
+  // };
 
   const updateDescription = async (e) => {
     clearTimeout(timer);
@@ -121,7 +125,7 @@ const Project = () => {
       } else {
         newFavouriteList.unshift(project);
       }
-      dispatch(setFavouriteList(newFavouriteList));
+      // dispatch(setFavouriteList(newFavouriteList));
       setIsFavourite(!isFavourite);
     } catch (err) {
       alert(err);
@@ -135,20 +139,21 @@ const Project = () => {
         const newFavouriteList = favouriteList.filter(
           (e) => e.id !== projectId
         );
-        dispatch(setFavouriteList(newFavouriteList));
+        // dispatch(setFavouriteList(newFavouriteList));
       }
 
-      const newList = projects.filter((e) => e.id !== projectId);
-      if (newList.length === 0) {
-        navigate("/projects");
-      } else {
-        navigate(`/projects/${newList[0].id}`);
-      }
-      dispatch(setProjects(newList));
+      // const newList = projects.filter((e) => e.id !== projectId);
+      // if (newList.length === 0) {
+      //   navigate("/projects");
+      // } else {
+      //   navigate(`/projects/${newList[0].id}`);
+      // }
+      // dispatch(setProjects(newList));
     } catch (err) {
       alert(err);
     }
   };
+  
 
   return (
     <>
@@ -173,7 +178,7 @@ const Project = () => {
       </Box>
       <Box sx={{ padding: "10px 50px" }}>
         <Box>
-          {/* emoji picker */}
+          emoji picker
           <EmojiPicker icon={icon} onChange={onIconChange} />
           <TextField
             value={title}
@@ -205,7 +210,7 @@ const Project = () => {
           />
         </Box>
         <Box>
-          {/* Kanban board */}
+          Kanban board
           <Kanban data={sections} projectId={projectId} />
         </Box>
       </Box>
