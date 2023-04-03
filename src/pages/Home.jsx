@@ -12,7 +12,7 @@ const Home = () => {
         justifyContent: "center"
       }}
     >
-      <LoadingButton variant="outlined" color="success" onClick={createBoard}>
+      <LoadingButton variant="outlined" onClick={createBoard}>
         Click here to SYNC your next collaboration
       </LoadingButton>
     </Box>
