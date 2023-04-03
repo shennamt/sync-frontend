@@ -1,6 +1,5 @@
-// `useSelector` hook for React components to access and subscribe to a
-// specific slice of the Redux store
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Drawer,
@@ -11,14 +10,28 @@ import {
 } from "@mui/material";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
-import { useNavigate } from "react-router-dom";
 import assets from "../../assets/index";
+import setBoards from "../../redux/features/boardSlice"
 
 const Sidebar = () => {
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.user.value); // react-redux hook for components to select and retrieve data from store
+  const boards = useSelector((state) => state.board.value);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch(); // dispatch actions to update state
   const sidebarWidth = 250;
+
+  useEffect(() => { // fetch data from API and update redux store state
+    const getBoards = async () => {
+      try {
+        const res = await boardApi.getAll()
+        console.log(res)
+        dispatch(setBoards(res)) // res is payload, send to redux store
+      } catch (err) {
+        alert (err)
+      }
+    }
+    getBoards()
+  }, []) // empty array passed as second argument means function will only be called once aft component has rendered
 
   const logout = () => {
     localStorage.removeItem("token");
