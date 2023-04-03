@@ -10,9 +10,9 @@ const AuthLayout = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
+  useEffect(() => { // execute function component is mounted/ nav dependecy changes
     const checkAuth = async () => {
-      const isAuth = await authUtils.isAuthenticated()
+      const isAuth = await authUtils.isAuthenticated() // checking if user is auth
       if (!isAuth) {
         setLoading(false)
       } else {
