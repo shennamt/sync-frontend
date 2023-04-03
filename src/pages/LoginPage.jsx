@@ -12,7 +12,7 @@ const LoginPage = () => {
   }
 
   return (
- <>
+    <>
       <Box>
         <Typography sx={{
           color: '#1976d2',
