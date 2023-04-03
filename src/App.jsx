@@ -1,7 +1,7 @@
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
+import "@fontsource/work-sans/300.css";
+import "@fontsource/work-sans/400.css";
+import "@fontsource/work-sans/500.css";
+import "@fontsource/work-sans/700.css";
 import CssBaseLine from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -14,7 +14,7 @@ import Signup from "./pages/Signup";
 
 const App = () => {
   const theme = createTheme({
-    palette: { mode: "dark" }
+    palette: { mode: "light" }
   });
 
   return (

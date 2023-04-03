@@ -12,8 +12,8 @@ const Home = () => {
         justifyContent: "center"
       }}
     >
-      <LoadingButton variant="outlined" color="success" onClick={createBoard}>
-        Click here to create your first board
+      <LoadingButton variant="outlined" onClick={createBoard}>
+        Click here to SYNC your next collaboration
       </LoadingButton>
     </Box>
   );

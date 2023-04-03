@@ -55,10 +55,10 @@ const Sidebar = () => {
               width: "100%",
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between"
+              justifyContent: "space-between",
             }}
           >
-            <Typography variant="body2" fontWeight="700">
+            <Typography variant="body2" fontWeight="700" color="white">
               {user.username}
             </Typography>
             <IconButton onClick={logout}>
@@ -76,7 +76,7 @@ const Sidebar = () => {
               justifyContent: "space-between"
             }}
           >
-            <Typography variant="body2" fontWeight="700">
+            <Typography variant="body2" fontWeight="700" color="white">
               Favourites
             </Typography>
           </Box>
@@ -91,7 +91,7 @@ const Sidebar = () => {
               justifyContent: "space-between"
             }}
           >
-            <Typography variant="body2" fontWeight="700">
+            <Typography variant="body2" fontWeight="700" color="white">
               Private
             </Typography>
             <IconButton>

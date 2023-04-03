@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -6,7 +6,6 @@ import authApi from "../api/authApi";
 
 const Login = () => {
   const navigate = useNavigate();
-
   const [loading, setLoading] = useState(false);
   const [usernameErrText, setUsernameErrText] = useState("");
   const [passwordErrText, setPasswordErrText] = useState("");
@@ -20,7 +19,7 @@ const Login = () => {
     const username = data.get("username").trim();
     const password = data.get("password").trim();
 
-    let err = false;
+    let err = false; // set to false but will change to true if any fields ar empty
 
     if (username === "") {
       err = true;
@@ -60,16 +59,24 @@ const Login = () => {
   };
   return (
     <>
-      {/* Box component is used to render a form */}
-      {/* noValidate - the form should not be validated on submit */}
+      <Typography sx={{
+        color: '#1976d2',
+        fontSize: '50px',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginTop: '20px'
+      }}>
+        SYNC
+      </Typography>
+      <Typography sx={{
+        textAlign: 'center',
+        fontSize: '20px',
+        marginTop: '5px',
+        marginBottom: '20px'
+      }}>
+        Welcome back
+      </Typography>
       <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit} noValidate>
-        {/* form control component that provides an input field for text input */}
-        {/* input is required */}
-        {/* f`TextField` component should take up the full width of its container */}
-        {/* `disable={loading}` specifies whether the TextField component */}
-        {/* should be disabled or not. The value of loading is assumed to be a boolean */}
-        {/* that indicates whether the component should be disabled or not. When */}
-        {/* loading is true, the TextField component will be disabled and the user will not be able to interact with it. */}
         <TextField
           margin="normal"
           required
@@ -95,9 +102,8 @@ const Login = () => {
         />
         <LoadingButton
           sx={{ mt: 3, mb: 2 }}
-          variant="outlined"
+          variant="contained"
           fullWidth
-          color="success"
           type="submit"
         >
           Login
