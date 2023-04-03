@@ -1,46 +1,49 @@
-import React from 'react'
-import { Container, Box } from '@mui/material'
-import { useState, useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
-import authUtils from '../../utils/authUtils'
-import Loading from '../common/Loading'
-import assets from '../../assets'
+import { useState, useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import authUtils from "../../utils/authUtils";
+import Loading from "../common/Loading";
+import { Container, Box } from "@mui/material";
+import assets from "../../assets";
 
 const AuthLayout = () => {
-  const navigate = useNavigate()
-  const [loading, setLoading] = useState(true)
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => { // execute function component is mounted/ nav dependecy changes
+  useEffect(() => {
     const checkAuth = async () => {
-      const isAuth = await authUtils.isAuthenticated() // checking if user is auth
+      const isAuth = await authUtils.isAuthenticated();
       if (!isAuth) {
-        setLoading(false)
+        setLoading(false);
       } else {
-        navigate('/')
+        navigate("/");
       }
-    }
-    checkAuth()
-  }, [navigate])
+    };
+    checkAuth();
+  }, [navigate]);
 
   return loading ? (
-    <Loading fullHeight/>
+    <Loading fullHeight />
   ) : (
-    <Container component='main' maxWidth='xs'>
-      <Box sx={{
-        marginTop: 8,
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column'
-      }}>
+    <Container component="main" maxWidth="xs">
+      {" "}
+      {/* fixed-width container component with built-in responsiveness*/}
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column"
+        }}
+      >
         <img
-        src={assets.images.logo}
-        style={{ width: '100px' }}
-        alt='app logo'
+          src={assets.images.logo}
+          style={{ width: "100px" }}
+          alt="app logo"
         />
         <Outlet />
       </Box>
     </Container>
-  )
-}
+  );
+};
 
-export default AuthLayout
+export default AuthLayout;
