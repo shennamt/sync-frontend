@@ -11,7 +11,9 @@ import {
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import assets from "../../assets/index";
-import setBoards from "../../redux/features/boardSlice"
+import { setBoards } from "../../redux/features/boardSlice"
+import { useEffect } from "react";
+import boardApi from "../../api/boardApi"
 
 const Sidebar = () => {
   const user = useSelector((state) => state.user.value); // react-redux hook for components to select and retrieve data from store
@@ -24,7 +26,6 @@ const Sidebar = () => {
     const getBoards = async () => {
       try {
         const res = await boardApi.getAll()
-        console.log(res)
         dispatch(setBoards(res)) // res is payload, send to redux store
       } catch (err) {
         alert (err)
@@ -32,6 +33,10 @@ const Sidebar = () => {
     }
     getBoards()
   }, []) // empty array passed as second argument means function will only be called once aft component has rendered
+
+  useEffect(() => {
+    console.log(boards)
+  }, [boards])
 
   const logout = () => {
     localStorage.removeItem("token");
