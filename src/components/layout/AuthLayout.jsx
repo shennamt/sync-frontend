@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Box } from '@mui/material'
 import { useState, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import authUtils from '../../utils/authUtils.js'
+import authUtils from '../../utils/authUtils'
 import Loading from '../common/Loading'
 import assets from '../../assets'
 
