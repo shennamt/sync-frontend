@@ -13,7 +13,7 @@ const Home = () => {
       }}
     >
       <LoadingButton variant="outlined" color="success" onClick={createBoard}>
-        Click here to create your first board
+        Click here to SYNC your next collaboration
       </LoadingButton>
     </Box>
   );
