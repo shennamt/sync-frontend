@@ -3,14 +3,11 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import authApi from '../api/authApi'
 
-
 import { Box, TextField, Button, Typography } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-
 const SignupPage = () => {
   const navigate = useNavigate()
-
   const [loading, setLoading] = useState(false)
   const [usernameErrText, setUsernameErrText] = useState('')
   const [passwordErrText, setPasswordErrText] = useState('')

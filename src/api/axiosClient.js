@@ -1,14 +1,14 @@
 import axios from 'axios'
 import queryString from 'query-string'
 
-const baseUrl = 'http://localhost:6001/'
+const baseURL = 'http://127.0.0.1:6001'
 const getToken = () => localStorage.getItem('token')
 
 // allow parameters to be sent as URL query string
 // by default, axios serializes parameters using JSON.stringify method with results in a key-value pair format.
 // i.e. {"name":"John","age":30} is not a valid URL query string but name=John&age=30 is. 
 const axiosClient = axios.create({
-  baseURL: baseUrl,
+  baseURL,
   paramsSerializer: {
     encode: params => queryString.stringify(params) // serealise URL parameters
   }
@@ -21,7 +21,7 @@ axiosClient.interceptors.request.use(async config => {
     ...config,
     headers: {
       'Content-Type': 'application/json',
-      'authorization': `Bearer ${getToken()}`
+      'Authorization': `Bearer ${getToken()}`
     }
   }
 })

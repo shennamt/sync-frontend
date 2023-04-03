@@ -22,22 +22,24 @@ const AuthLayout = () => {
     checkAuth()
   }, [navigate])
 
-  return (
-    loading ? (
-      <Loading fullHeight/>
-    ) : (
-      <Container component='main' maxWidth='xs'>
-        <Box sx={{
-          marginTop: 8,
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}>
-          <img src={assets.images.logo} style={{ width: '100px' }} alt='app logo' />
-          <Outlet />
-        </Box>
-      </Container>
-    )
+  return loading ? (
+    <Loading fullHeight/>
+  ) : (
+    <Container component='main' maxWidth='xs'>
+      <Box sx={{
+        marginTop: 8,
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column'
+      }}>
+        <img
+        src={assets.images.logo}
+        style={{ width: '100px' }}
+        alt='app logo'
+        />
+        <Outlet />
+      </Box>
+    </Container>
   )
 }
 
