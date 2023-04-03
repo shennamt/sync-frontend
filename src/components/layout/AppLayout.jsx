@@ -17,7 +17,6 @@ const AppLayout = () => {
       if (!user) {
         navigate('/login')
       } else {
-
         setLoading(false)
       }
     }

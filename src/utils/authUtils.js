@@ -8,7 +8,8 @@ const authUtils = {
     try {
       const res = await authApi.verifyToken() // if token found, verify token
       return res.user
-    } catch {
+    } catch(error) {
+      console.log(error)
       return false
     }
   }
