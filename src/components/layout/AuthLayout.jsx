@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Box } from '@mui/material'
 import { useState, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import authUtils from '../../utils/authUtils.js'
+import authUtils from '../../utils/authUtils'
 import Loading from '../common/Loading'
 import assets from '../../assets'
 
@@ -22,22 +22,24 @@ const AuthLayout = () => {
     checkAuth()
   }, [navigate])
 
-  return (
-    loading ? (
-      <Loading fullHeight/>
-    ) : (
-      <Container component='main' maxWidth='xs'>
-        <Box sx={{
-          marginTop: 8,
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}>
-          <img src={assets.images.logo} style={{ width: '100px' }} alt='app logo' />
-          <Outlet />
-        </Box>
-      </Container>
-    )
+  return loading ? (
+    <Loading fullHeight/>
+  ) : (
+    <Container component='main' maxWidth='xs'>
+      <Box sx={{
+        marginTop: 8,
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column'
+      }}>
+        <img
+        src={assets.images.logo}
+        style={{ width: '100px' }}
+        alt='app logo'
+        />
+        <Outlet />
+      </Box>
+    </Container>
   )
 }
 
