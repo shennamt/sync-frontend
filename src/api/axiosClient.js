@@ -1,40 +1,48 @@
-import axios from 'axios'
-import queryString from 'query-string'
+import axios from "axios";
+import queryString from "query-string";
 
-const baseURL = 'http://127.0.0.1:6001'
-const getToken = () => localStorage.getItem('token')
-
-// allow parameters to be sent as URL query string
-// by default, axios serializes parameters using JSON.stringify method with results in a key-value pair format.
-// i.e. {"name":"John","age":30} is not a valid URL query string but name=John&age=30 is. 
+const baseURL = "http://127.0.0.1:5000/api/v1";
+const getToken = () => localStorage.getItem("token");
+// creates an instance of the Axios HTTP client configured to send to the
+// specific base URL
 const axiosClient = axios.create({
   baseURL,
   paramsSerializer: {
-    encode: params => queryString.stringify(params) // serealise URL parameters
+    encode: (params) => queryString.stringify(params)
   }
-})
-
-// interceptor adds bearer token to req headers obtained form getToken()
-// by adding the token to header, server can verify user making req is ath to access req source.
-axiosClient.interceptors.request.use(async config => {
+});
+// this is triggered before a request is sent
+// adds `Authorization` header to the request that includes a JWT token
+// obtained from local storage
+/* prettier-ignore */
+axiosClient.interceptors.request.use(async (config) => {
   return {
+    // spread the properties of `config` object and then additional properties
+    // like `headers` are added to the object before return by the
+    // `interceptors.request` method
     ...config,
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${getToken()}`
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${getToken()}`
     }
+  };
+});
+// triggered when a response is received
+// checks response for a `data` property, and if yes, returns only that property
+axiosClient.interceptors.response.use(
+  (response) => {
+    if (response && response.data) return response.data;
+    // otherwise return the entire response
+    return response;
+  },
+  (err) => {
+    if (!err.response) {
+      console.log("axiosClient.js: interceptors.response err\n", err);
+      return alert(err);
+    }
+    console.log("axiosClient.js: err.response\n", err.response);
+    throw err.response;
   }
-})
+);
 
-// adds interceptor that returns res.data if it exists or res object otherwise
-axiosClient.interceptors.request.use(response => {
-  if (response && response.data) return response.data // 1st argument recieves res{} and checks if {} and data exists
-  return response
-}, err => {
-  if (!err.response) { //checks if err{} has response property.
-    return alert(err)
-  }
-  throw err.response
-})
-
-export default axiosClient
+export default axiosClient;
