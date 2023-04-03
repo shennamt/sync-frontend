@@ -1,8 +1,8 @@
 import React from 'react'
-import { Container, Box } from '@mui.material'
+import { Container, Box } from '@mui/material'
 import { useState, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import authUtils from '../../utils/authUtils'
+import authUtils from '../../utils/authUtils.js'
 import Loading from '../common/Loading'
 import assets from '../../assets'
 
@@ -19,6 +19,7 @@ const AuthLayout = () => {
         navigate('/')
       }
     }
+    checkAuth()
   }, [navigate])
 
   return (
