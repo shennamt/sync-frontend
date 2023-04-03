@@ -5,8 +5,7 @@ import { Box } from '@mui/material'
 
 import authUtils from '../../utils/authUtils'
 import Loading from '../common/Loading'
-import Sidebar from '../../common/Sidebar'
-
+import Sidebar from '../common/Sidebar'
 
 const AppLayout = () => {
   const navigate = useNavigate()
