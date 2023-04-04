@@ -33,7 +33,7 @@ The purpose of developing this App is to create a simple project management tool
 
 ---
 
-![width:1200](src/assets/images/routes.png)
+![width:1200](src/assets/images/models.png)
 
 ---
 
