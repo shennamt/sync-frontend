@@ -78,25 +78,21 @@ const Signup = () => {
 
   return (
     <>
-      <Typography
-        sx={{
-          color: "#1976d2",
-          fontSize: "50px",
-          fontWeight: "bold",
-          textAlign: "center",
-          marginTop: "20px"
-        }}
-      >
+      <Typography sx={{
+        color: '#1976d2',
+        fontSize: '50px',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginTop: '20px'
+      }}>
         SYNC
       </Typography>
-      <Typography
-        sx={{
-          textAlign: "center",
-          fontSize: "17px",
-          marginTop: "5px",
-          marginBottom: "15px"
-        }}
-      >
+      <Typography sx={{
+        textAlign: 'center',
+        fontSize: '17px',
+        marginTop: '5px',
+        marginBottom: '15px'
+      }}>
         Create an account to Synchronise Your Next Collaboration
       </Typography>
       <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit} noValidate>
