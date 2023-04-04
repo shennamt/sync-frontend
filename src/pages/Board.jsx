@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import boardApi from '../api/boardApi'
-import Kanban from '../components/common/Kanban'
+import Kanban from '../components/common/Kanban.jsx'
 import { setBoards } from '../redux/features/boardSlice'
 import { setFavouriteList } from '../redux/features/favouriteSlice'
 
@@ -50,14 +50,6 @@ const Board = () => {
       const favouriteIndex = tempFavourite.findIndex(e => e.id === boardId)
       tempFavourite[favouriteIndex] = { ...tempFavourite[favouriteIndex], icon: newIcon }
       dispatch(setFavouriteList(tempFavourite))
-    }
-
-    setIcon(newIcon)
-    dispatch(setBoards(temp))
-    try {
-      await boardApi.update(boardId, { icon: newIcon })
-    } catch (err) {
-      alert(err)
     }
   }
 
