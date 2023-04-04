@@ -28,9 +28,9 @@ const Signup = () => {
     setPasswordErrText("");
     setConfirmPasswordErrText("");
 
-    const handleOccupationChange = (event) => {
-      setOccupation(event.target.value);
-    };
+    // const handleOccupationChange = (event) => {
+    //   setOccupation(event.target.value);
+    // };
 
     const data = new FormData(e.target);
     const username = data.get("username").trim();
