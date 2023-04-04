@@ -33,11 +33,10 @@ const Home = () => {
     }}>
       <LoadingButton
         variant='outlined'
-        color='success'
         onClick={createBoard}
         loading={loading}
       >
-        Click here to create your first board
+        Click here to SYNC
       </LoadingButton>
     </Box>
   )
