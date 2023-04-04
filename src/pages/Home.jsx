@@ -16,7 +16,7 @@ const Home = () => {
     try {
       const res = await boardApi.create() 
       dispatch(setBoards([res])) // passes arr with res as payload. new board will be added to existing arr instead of replaced.
-      navigate(`/boards/${res._id}`) // nav to newly created board
+      navigate(`/boards/${res.id}`) // nav to newly created board
     } catch (err) {
       alert(err)
     } finally {

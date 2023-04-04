@@ -40,9 +40,9 @@ const Sidebar = () => {
   }, [dispatch])
 
   useEffect(() => {
-    const activeItem = boards.findIndex(e => e._id === boardId) // looks for board
+    const activeItem = boards.findIndex(e => e.id === boardId) // looks for board
     if (boards.length > 0 && boardId === undefined) {
-      navigate(`/boards/${boards[0]._id}`) // nav to the board id clicked or first board depending on arr
+      navigate(`/boards/${boards[0].id}`) // nav to the board id clicked or first board depending on arr
     }
     setActiveIndex(activeItem) // update state of active board
   }, [boards, boardId, navigate])
@@ -57,7 +57,7 @@ const Sidebar = () => {
     const [removed] = newList.splice(source.index, 1)
     newList.splice(destination.index, 0, removed)
 
-    const activeItem = newList.findIndex(e => e._id === boardId)
+    const activeItem = newList.findIndex(e => e.id === boardId)
     setActiveIndex(activeItem)
     dispatch(setBoards(newList))
 
@@ -73,7 +73,7 @@ const Sidebar = () => {
       const res = await boardApi.create()
       const newList = [res, ...boards]
       dispatch(setBoards(newList))
-      navigate(`/boards/${res._id}`)
+      navigate(`/boards/${res.id}`)
     } catch (err) {
       alert(err)
     }
@@ -151,7 +151,7 @@ const Sidebar = () => {
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 {
                   boards.map((item, index) => (
-                    <Draggable key={item._id} draggableId={item._id} index={index}>
+                    <Draggable key={item.id} draggableId={item.id} index={index}>
                       {(provided, snapshot) => (
                         <ListItemButton
                           ref={provided.innerRef}
@@ -159,7 +159,7 @@ const Sidebar = () => {
                           {...provided.draggableProps}
                           selected={index === activeIndex}
                           component={Link}
-                          to={`/boards/${item._id}`}
+                          to={`/boards/${item.id}`}
                           sx={{
                             pl: '20px',
                             cursor:snapshot.isDragging ? 'grab' : 'pointer!important'

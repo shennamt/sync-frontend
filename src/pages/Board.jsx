@@ -5,12 +5,10 @@ import boardApi from '../api/boardApi'
 
 const Board = () => {
   const { boardId } = useParams()
-  console.log(boardId)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [sections, setSections] = useState([])
   const [isFavourite, setIsFavourite] = useState(false)
-  const [icon, setIcon] = useState('')
 
   useEffect(() => {
     const getBoard = async () => {
@@ -20,9 +18,10 @@ const Board = () => {
         setDescription(res.description)
         setSections(res.sections)
         setIsFavourite(res.favourite)
-        setIcon(res.icon)
+        console.log(res)
       } catch (err) {
         alert(err)
+        console.log(err)
       }
     }
     getBoard()
