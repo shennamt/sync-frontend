@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+---
+marp: true
+author: Aaron, Shenna, Xiang Feng
+size: 4:3
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+![width:100px](src/assets/images/logo.png)
+# SYNC
 
-In the project directory, you can run:
+Synchonise Your Next Collaboration
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# About
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+This is an app built with the MERN Stack(MongoDB, Express, React, Node). It's a simple task tracking app that can be developed and adopted into a more complex and useful tool.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Purpose
+The purpose of developing this App is to create a simple project management tool for people of all ages.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Features
+- Register and Login
+- Create, read, update and delete boards
+- Create, read, update and delete lists
+- Create, read, update and delete tasks
+- Drag and drop lists or tasks
+- Add a board to a fav.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![width:1200](src/assets/images/routes.png)
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# TODO
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Upload attachements
+- Add members
+- Search projects
+- Add colour, labels, begin and end dates
+- Signin or Register through gmail.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Used Technologies
+<style scoped>
+table {
+  font-size: 20px;
+}
+</style>
 
-## Learn More
+| Frontend      	    | Backend              | Development     |
+|-------------------  |--------------------- |---------------	 |
+| react         	    | express              | nodemon         |
+| react-router-dom    | dotenv               |                 |
+| react-redux    	    | cors                 |                 |
+| @reduxjs-toolkit    | express-validator    |                 |
+| react-beautiful-dnd | jsonwebtoken         |                 |
+| query-string   	    | mongoose             |                 |
+| axios         	    | crypto-js            |                 |
+| @mui/material 	    |                      |                 |
+| @mui/lab      	    |                      |                 |
+| @ckeditor           |                      |                 |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# How to run?
+<style scoped>
+ul {
+  font-size: 17px;
+}
+</style>
+- Download nodejs [here](https://nodejs.org/en/download/) 
+- For database, you can use local mongodb or mongo atlas (See [here](https://www.mongodb.com/)).
+- Clone the repository:
+  ```git clone git@github.com:shennamt/sync-frontend.git``` 
 
-### Code Splitting
+- CD into directory:
+  ```cd sync-frontend```
+  ```npm install```
+  ```npm run start```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Change directory of terminal and install the backend:
+  ```git clone git@github.com:shennamt/sync-backend.git```
+  ```cd sync-backend```
+  ```npm install```
+  ```npm run start```
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Create .env file in server directory and enter required variables
