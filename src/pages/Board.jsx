@@ -10,8 +10,8 @@ import Kanban from "../components/common/Kanban";
 import { setBoards } from "../redux/features/boardSlice";
 // import { setFavouriteList } from "../redux/features/favouriteSlice";
 
-// let timer;
-// const timeout = 500;
+let timer;
+const timeout = 500;
 
 const Board = () => {
   const dispatch = useDispatch();
@@ -33,9 +33,9 @@ const Board = () => {
         setDescription(res.description);
         setSections(res.sections);
         setIsFavourite(res.favourite);
-        console.log(res);
+        // console.log(res);
       } catch (err) {
-        alert(err);
+        // alert(err);
         console.log(err);
       }
     };
@@ -43,12 +43,12 @@ const Board = () => {
   }, [boardId]);
 
   const updateTitle = async (e) => {
-    // clearTimeout(timer);
-    // const newTitle = e.target.value;
-    // setTitle(newTitle);
-    // let temp = [...boards];
-    // const index = temp.findIndex((e) => e.id === boardId);
-    // temp[index] = { ...temp[index], title: newTitle };
+    clearTimeout(timer);
+    const newTitle = e.target.value;
+    setTitle(newTitle);
+    let temp = [...boards];
+    const index = temp.findIndex((e) => e.id === boardId);
+    temp[index] = { ...temp[index], title: newTitle };
     // if (isFavourite) {
     //   let tempFavourite = [...favouriteList];
     //   const favouriteIndex = tempFavourite.findIndex((e) => e.id === boardId);
@@ -58,28 +58,29 @@ const Board = () => {
     //   };
     // dispatch(setFavouriteList(tempFavourite));
     // }
-    //   dispatch(setBoards(temp));
-    //   timer = setTimeout(async () => {
-    //     try {
-    //       await boardApi.update(boardId, { title: newTitle });
-    //     } catch (err) {
-    //       console.log("timer: err\n", err);
-    //       alert(err);
-    //     }
-    //   }, timeout);
+    dispatch(setBoards(temp));
+    timer = setTimeout(async () => {
+      try {
+        await boardApi.update(boardId, { title: newTitle });
+      } catch (err) {
+        console.log("timer: err\n", err);
+        // alert(err);
+      }
+    }, timeout);
   };
 
   const updateDescription = async (e) => {
-    // clearTimeout(timer);
-    // const newDescription = e.target.value;
-    // setDescription(newDescription);
-    // timer = setTimeout(async () => {
-    //   try {
-    //     await boardApi.update(boardId, { description: newDescription });
-    //   } catch (err) {
-    //     alert(err);
-    //   }
-    // }, timeout);
+    clearTimeout(timer);
+    const newDescription = e.target.value;
+    setDescription(newDescription);
+    timer = setTimeout(async () => {
+      try {
+        await boardApi.update(boardId, { description: newDescription });
+      } catch (err) {
+        console.log("err\n", err);
+        // alert(err)
+      }
+    }, timeout);
   };
 
   const deleteBoard = async () => {
@@ -98,7 +99,8 @@ const Board = () => {
       }
       dispatch(setBoards(newList));
     } catch (err) {
-      alert(err);
+      console.log("err\n", err);
+      // alert(err)
     }
   };
 
