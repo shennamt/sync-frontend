@@ -1,29 +1,26 @@
 import { Box } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
-import boardApi from "../api/boardApi";
+import { useDispatch } from "react-redux"
 import { setBoards } from "../redux/features/boardSlice";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import boardApi from "../api/boardApi";
 
 const Home = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
 
   const createBoard = async () => {
-    setLoading(true);
+    setLoading(true) // something is happening
     try {
-      const res = await boardApi.create();
-      // expect `res` an array of board objects, wrap the array inside another array
-      // before setting it in the Redux store
-      dispatch(setBoards([res]));
-      navigate(`/boards/${res.id}`);
+      const res = await boardApi.create() 
+      dispatch(setBoards([res])) // passes arr with res as payload. new board will be added to existing arr instead of replaced.
+      navigate(`/boards/${res.id}`) // nav to newly created board
     } catch (err) {
-      console.log("Home.jsx/try catch: err\n", err);
-      alert(err);
+      alert(err)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   };
 
@@ -38,11 +35,11 @@ const Home = () => {
     >
       <LoadingButton
         variant="outlined"
-        color="success"
         onClick={createBoard}
         loading={loading}
       >
-        Click here to create your first board
+        Click here to SYNC your next collaboration
+
       </LoadingButton>
     </Box>
   );
