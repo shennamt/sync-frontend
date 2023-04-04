@@ -1,10 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Box,
   Drawer,
   IconButton,
-  Link,
   List,
   ListItem,
   ListItemButton,
@@ -14,39 +13,39 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import assets from "../../assets/index";
-import { setBoards } from "../../redux/features/boardSlice"
+import { setBoards } from "../../redux/features/boardSlice";
 import { useEffect, useState } from "react";
-import boardApi from "../../api/boardApi"
+import boardApi from "../../api/boardApi";
 
 const Sidebar = () => {
   const user = useSelector((state) => state.user.value); // react-redux hook for components to select and retrieve data from store
   const boards = useSelector((state) => state.board.value);
   const navigate = useNavigate();
   const dispatch = useDispatch(); // dispatch actions to update state
-  const { boardId } = useParams()
-  const [activeIndex, setActiveIndex] = useState(0) // arr destructuring to create 2 new vars
+  const { boardId } = useParams();
+  const [activeIndex, setActiveIndex] = useState(0); // arr destructuring to create 2 new vars
   const sidebarWidth = 250;
 
-  useEffect(() => { // fetch data from API and update redux store state
+  useEffect(() => {
+    // fetch data from API and update redux store state
     const getBoards = async () => {
       try {
-        const res = await boardApi.getAll()
-        dispatch(setBoards(res)) // res is payload, send to redux store
+        const res = await boardApi.getAll();
+        dispatch(setBoards(res)); // res is payload, send to redux store
       } catch (err) {
-        alert (err)
+        alert(err);
       }
-    }
-    getBoards()
-  }, [dispatch])
+    };
+    getBoards();
+  }, [dispatch]);
 
   useEffect(() => {
-    const activeItem = boards.findIndex(e => e.id === boardId) // looks for board
+    const activeItem = boards.findIndex((e) => e.id === boardId); // looks for board
     if (boards.length > 0 && boardId === undefined) {
-      navigate(`/boards/${boards[0].id}`) // nav to the board id clicked or first board depending on arr
+      navigate(`/boards/${boards[0].id}`); // nav to the board id clicked or first board depending on arr
     }
-    setActiveIndex(activeItem) // update state of active board
-  }, [boards, boardId, navigate])
-
+    setActiveIndex(activeItem); // update state of active board
+  }, [boards, boardId, navigate]);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -54,33 +53,32 @@ const Sidebar = () => {
   };
 
   const onDragEnd = async ({ source, destination }) => {
+    const newList = [...boards];
+    const [removed] = newList.splice(source.index, 1);
+    newList.splice(destination.index, 0, removed);
 
-    const newList = [...boards]
-    const [removed] = newList.splice(source.index, 1)
-    newList.splice(destination.index, 0, removed)
-
-    const activeItem = newList.findIndex(e => e.id === boardId)
-    setActiveIndex(activeItem)
-    dispatch(setBoards(newList))
+    const activeItem = newList.findIndex((e) => e.id === boardId);
+    setActiveIndex(activeItem);
+    dispatch(setBoards(newList));
 
     try {
-      await boardApi.updatePosition({ boards: newList })
+      await boardApi.updatePosition({ boards: newList });
     } catch (err) {
-      alert(err)
+      alert(err);
     }
-  }
+  };
 
   const addBoard = async () => {
     try {
-      const res = await boardApi.create()
-      const newList = [res, ...boards]
-      dispatch(setBoards(newList))
-      navigate(`/boards/${res.id}`)
+      const res = await boardApi.create();
+      const newList = [res, ...boards];
+      dispatch(setBoards(newList));
+      navigate(`/boards/${res.id}`);
     } catch (err) {
-      alert(err)
+      alert(err);
     }
-  }
-  
+  };
+
   return (
     <Drawer
       container={window.document.body}
@@ -90,14 +88,16 @@ const Sidebar = () => {
         width: sidebarWidth,
         height: "100%",
         "& > div": { borderRight: "none" }
-      }}>
+      }}
+    >
       <List
         disablePadding
         sx={{
           width: sidebarWidth,
           height: "100vh",
           backgroundColor: assets.colors.secondary
-        }}>
+        }}
+      >
         <ListItem>
           <Box
             sx={{
@@ -138,7 +138,8 @@ const Sidebar = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between"
-            }}>
+            }}
+          >
             <Typography variant="body2" fontWeight="700" color="white">
               Private
             </Typography>
@@ -148,39 +149,45 @@ const Sidebar = () => {
           </Box>
         </ListItem>
         <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable key={'list-board-droppable'} droppableId={'list-board-droppable'}>
+          <Droppable
+            key={"list-board-droppable"}
+            droppableId={"list-board-droppable"}
+          >
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
-                {
-                  boards.map((item, index) => (
-                    <Draggable key={item.id} draggableId={item.id} index={index}>
-                      {(provided, snapshot) => (
-                        <ListItemButton
-                          ref={provided.innerRef}
-                          {...provided.dragHandleProps}
-                          {...provided.draggableProps}
-                          selected={index === activeIndex}
-                          component={Link}
-                          to={`/boards/${item.id}`}
+                {boards.map((item, index) => (
+                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                    {(provided, snapshot) => (
+                      <ListItemButton
+                        ref={provided.innerRef}
+                        {...provided.dragHandleProps}
+                        {...provided.draggableProps}
+                        selected={index === activeIndex}
+                        component={Link}
+                        to={`/boards/${item.id}`}
+                        sx={{
+                          pl: "20px",
+                          cursor: snapshot.isDragging
+                            ? "grab"
+                            : "pointer!important"
+                        }}
+                      >
+                        <Typography
+                          variant="body2"
+                          fontWeight="700"
+                          color="white"
                           sx={{
-                            pl: '20px',
-                            cursor:snapshot.isDragging ? 'grab' : 'pointer!important'
+                            whitespace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis"
                           }}
-                          >
-                            <Typography
-                              variant='body2'
-                              fontWeight='700'
-                              color='white'
-                              sx={{ whitespace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
-
-                            >
-                              {item.title}
-                            </Typography>
-                        </ListItemButton>
-                      )}
-                    </Draggable>
-                  ))
-                }
+                        >
+                          {item.title}
+                        </Typography>
+                      </ListItemButton>
+                    )}
+                  </Draggable>
+                ))}
                 {provided.placeholder}
               </div>
             )}
