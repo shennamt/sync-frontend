@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   Box,
@@ -12,13 +13,22 @@ import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import boardApi from "../api/boardApi";
+import { setBoards } from "../redux/features/boardSlice";
+// import { setFavouriteList } from "../redux/features/favouriteSlice";
+
+let timer;
+const timeout = 500;
 
 const Board = () => {
+  const dispatch = useDispatch();
   const { boardId } = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [sections, setSections] = useState([]);
   const [isFavourite, setIsFavourite] = useState(false);
+
+  const boards = useSelector((state) => state.board.value);
+  // const favouriteList = useSelector((state) => state.favourites.value);
 
   useEffect(() => {
     const getBoard = async () => {
@@ -36,6 +46,46 @@ const Board = () => {
     };
     getBoard();
   }, [boardId]);
+
+  const updateTitle = async (e) => {
+    // clearTimeout(timer);
+    // const newTitle = e.target.value;
+    // setTitle(newTitle);
+    // let temp = [...boards];
+    // const index = temp.findIndex((e) => e.id === boardId);
+    // temp[index] = { ...temp[index], title: newTitle };
+    // if (isFavourite) {
+    //   let tempFavourite = [...favouriteList];
+    //   const favouriteIndex = tempFavourite.findIndex((e) => e.id === boardId);
+    //   tempFavourite[favouriteIndex] = {
+    //     ...tempFavourite[favouriteIndex],
+    //     title: newTitle
+    //   };
+    // dispatch(setFavouriteList(tempFavourite));
+    // }
+    //   dispatch(setBoards(temp));
+    //   timer = setTimeout(async () => {
+    //     try {
+    //       await boardApi.update(boardId, { title: newTitle });
+    //     } catch (err) {
+    //       console.log("timer: err\n", err);
+    //       alert(err);
+    //     }
+    //   }, timeout);
+  };
+
+  const updateDescription = async (e) => {
+    // clearTimeout(timer);
+    // const newDescription = e.target.value;
+    // setDescription(newDescription);
+    // timer = setTimeout(async () => {
+    //   try {
+    //     await boardApi.update(boardId, { description: newDescription });
+    //   } catch (err) {
+    //     alert(err);
+    //   }
+    // }, timeout);
+  };
 
   return (
     <>
@@ -62,6 +112,7 @@ const Board = () => {
         <Box>
           <TextField
             value={title}
+            onChange={updateTitle}
             placeholder="Untitled"
             variant="outlined"
             fullWidth
@@ -76,6 +127,7 @@ const Board = () => {
           />
           <TextField
             value={description}
+            onChange={updateDescription}
             placeholder="Add a description"
             variant="outlined"
             multiline
