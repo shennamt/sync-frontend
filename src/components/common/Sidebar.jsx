@@ -47,12 +47,14 @@ const Sidebar = () => {
     setActiveIndex(activeItem) // update state of active board
   }, [boards, boardId, navigate])
 
+
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
 
   const onDragEnd = async ({ source, destination }) => {
+
     const newList = [...boards]
     const [removed] = newList.splice(source.index, 1)
     newList.splice(destination.index, 0, removed)
@@ -78,7 +80,7 @@ const Sidebar = () => {
       alert(err)
     }
   }
-
+  
   return (
     <Drawer
       container={window.document.body}
@@ -102,10 +104,10 @@ const Sidebar = () => {
               width: "100%",
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "space-between"
             }}
           >
-            <Typography variant="body2" fontWeight="700" color="white">
+            <Typography variant="body2" fontWeight="700">
               {user.username}
             </Typography>
             <IconButton onClick={logout}>
@@ -123,7 +125,7 @@ const Sidebar = () => {
               justifyContent: "space-between"
             }}
           >
-            <Typography variant="body2" fontWeight="700" color="white">
+            <Typography variant="body2" fontWeight="700">
               Favourites
             </Typography>
           </Box>

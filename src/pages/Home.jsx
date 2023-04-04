@@ -39,6 +39,7 @@ const Home = () => {
         loading={loading}
       >
         Click here to SYNC your next collaboration
+
       </LoadingButton>
     </Box>
   );
