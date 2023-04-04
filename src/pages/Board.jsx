@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Box,
   Button,
@@ -16,11 +16,12 @@ import boardApi from "../api/boardApi";
 import { setBoards } from "../redux/features/boardSlice";
 // import { setFavouriteList } from "../redux/features/favouriteSlice";
 
-let timer;
-const timeout = 500;
+// let timer;
+// const timeout = 500;
 
 const Board = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { boardId } = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -87,6 +88,26 @@ const Board = () => {
     // }, timeout);
   };
 
+  const deleteBoard = async () => {
+    try {
+      await boardApi.delete(boardId);
+      // if (isFavourite) {
+      //   const newFavouriteList = favouriteList.filter(e => e.id !== boardId)
+      //   dispatch(setFavouriteList(newFavouriteList))
+      // }
+
+      const newList = boards.filter((e) => e.id !== boardId);
+      if (newList.length === 0) {
+        navigate("/boards");
+      } else {
+        navigate(`/boards/${newList[0].id}`);
+      }
+      dispatch(setBoards(newList));
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   return (
     <>
       <Box
@@ -104,7 +125,7 @@ const Board = () => {
             <StarBorderOutlinedIcon />
           )}
         </IconButton>
-        <IconButton variant="outlined" color="error">
+        <IconButton variant="outlined" color="error" onClick={deleteBoard}>
           <DeleteOutlineIcon />
         </IconButton>
       </Box>
