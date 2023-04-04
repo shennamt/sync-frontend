@@ -23,7 +23,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch(); // dispatch actions to update state
   const { boardId } = useParams();
-  onst[(activeIndex, setActiveIndex)] = useState(0); // arr destructuring to create 2 new vars
+  const [activeIndex, setActiveIndex] = useState(0); // arr destructuring to create 2 new vars
   const sidebarWidth = 250;
 
   useEffect(() => {
