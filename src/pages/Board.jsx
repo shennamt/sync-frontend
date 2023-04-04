@@ -1,18 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Divider,
-  IconButton,
-  TextField,
-  Typography
-} from "@mui/material";
+import { Box, IconButton, TextField } from "@mui/material";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import boardApi from "../api/boardApi";
+import Kanban from "../components/common/Kanban";
 import { setBoards } from "../redux/features/boardSlice";
 // import { setFavouriteList } from "../redux/features/favouriteSlice";
 
@@ -161,21 +155,9 @@ const Board = () => {
           />
         </Box>
         <Box>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}
-          >
-            <Button>Add section</Button>
-            <Typography variant="body2" fontWeight="700">
-              {sections.length} Sections
-            </Typography>
-          </Box>
+          {/* Kanban board */}
+          <Kanban data={sections} boardId={boardId} />
         </Box>
-        <Divider sx={{ margin: "10px 0" }} />
-        {/* Kanban board */}
       </Box>
     </>
   );
