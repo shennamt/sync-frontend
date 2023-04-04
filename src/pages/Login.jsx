@@ -41,9 +41,15 @@ const Login = () => {
         password
       });
       console.log("Signup.jsx: res\n", res);
+
+      // const { data: { occupation } } = await authApi.getProfile(); // fetch the occupation from your backend API
+      // console.log("Login.jsx: occupation\n", occupation);
+
       setLoading(false);
       localStorage.setItem("token", res.token);
       navigate("/");
+      localStorage.setItem("occupation", res.occupation);
+      localStorage.setItem("username", res.username);
     } catch (err) {
       const errors = err.data.errors;
       console.log("Signup.jsx: errors\n", errors);

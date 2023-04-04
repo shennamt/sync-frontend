@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -11,12 +11,17 @@ const Signup = () => {
   const [usernameErrText, setUsernameErrText] = useState("");
   const [passwordErrText, setPasswordErrText] = useState("");
   const [confirmPasswordErrText, setConfirmPasswordErrText] = useState("");
+  const [occupation, setOccupation] = useState("student")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUsernameErrText("");
     setPasswordErrText("");
     setConfirmPasswordErrText("");
+
+    const handleOccupationChange = (event) => {
+      setOccupation(event.target.value);
+    }
 
     const data = new FormData(e.target);
     const username = data.get("username").trim();
@@ -52,7 +57,8 @@ const Signup = () => {
       const res = await authApi.signup({
         username,
         password,
-        confirmPassword
+        confirmPassword,
+        occupation
       });
       console.log("Signup.jsx: res\n", res);
       setLoading(false);
@@ -131,6 +137,22 @@ const Signup = () => {
           error={confirmPasswordErrText !== ""}
           helperText={confirmPasswordErrText}
         />
+        <div className='input__field'>
+          <FormControl className='radio__occupation'>
+            <FormLabel>Occupation</FormLabel>
+            <RadioGroup
+              defaultValue="Student"
+              aria-labelledby="demo-customized-radios"
+              name="customized-radios"
+              style={{ display: 'initial' }}
+              onChange={(e) => setOccupation(e.target.value)}
+            >
+              <FormControlLabel value="Student" control={<Radio />} label="Student" />
+              <FormControlLabel value="Professional" control={<Radio />} label="Professional" />
+            </RadioGroup>
+          </FormControl>
+        </div>
+
         <LoadingButton
           sx={{ mt: 3, mb: 2 }}
           variant="contained"
