@@ -4,8 +4,9 @@ const initialState = { value: [] };
 export const boardSlice = createSlice({
   name: "user",
   initialState,
-  reducers: { 
-    setBoards: (state, action) => { // reducer functions that handle actions that update the state
+  reducers: {
+    setBoards: (state, action) => {
+      // reducer functions that handle actions that update the state
       state.value = action.payload; // replace existing value array with payload array
     }
   }
