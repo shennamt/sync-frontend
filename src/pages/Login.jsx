@@ -41,9 +41,13 @@ const Login = () => {
         password
       });
       console.log("Signup.jsx: res\n", res);
+      // const { data: { occupation } } = await authApi.getProfile(); // fetch the occupation from your backend API
+      // console.log("Login.jsx: occupation\n", occupation);
       setLoading(false);
       localStorage.setItem("token", res.token);
       navigate("/");
+      localStorage.setItem("occupation", res.occupation);
+      localStorage.setItem("username", res.username);
     } catch (err) {
       const errors = err.data.errors;
       console.log("Signup.jsx: errors\n", errors);
@@ -60,21 +64,25 @@ const Login = () => {
   };
   return (
     <>
-      <Typography sx={{
-        color: '#1976d2',
-        fontSize: '50px',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: '20px'
-      }}>
+      <Typography
+        sx={{
+          color: "#1976d2",
+          fontSize: "50px",
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop: "20px"
+        }}
+      >
         SYNC
       </Typography>
-      <Typography sx={{
-        textAlign: 'center',
-        fontSize: '17px',
-        marginTop: '5px',
-        marginBottom: '15px'
-      }}>
+      <Typography
+        sx={{
+          textAlign: "center",
+          fontSize: "17px",
+          marginTop: "5px",
+          marginBottom: "15px"
+        }}
+      >
         Welcome back
       </Typography>
       {/* Box component is used to render a form */}
