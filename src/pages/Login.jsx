@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -60,6 +60,23 @@ const Login = () => {
   };
   return (
     <>
+      <Typography sx={{
+        color: '#1976d2',
+        fontSize: '50px',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginTop: '20px'
+      }}>
+        SYNC
+      </Typography>
+      <Typography sx={{
+        textAlign: 'center',
+        fontSize: '17px',
+        marginTop: '5px',
+        marginBottom: '15px'
+      }}>
+        Welcome back
+      </Typography>
       {/* Box component is used to render a form */}
       {/* noValidate - the form should not be validated on submit */}
       <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit} noValidate>
@@ -95,9 +112,8 @@ const Login = () => {
         />
         <LoadingButton
           sx={{ mt: 3, mb: 2 }}
-          variant="outlined"
+          variant="contained"
           fullWidth
-          color="success"
           type="submit"
         >
           Login

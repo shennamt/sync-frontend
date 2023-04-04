@@ -5,7 +5,7 @@ size: 4:3
 
 ---
 
-![width:100px](src/assets/images/logo.png)
+![height:200px](src/assets/images/logo.png)
 # SYNC
 
 Synchonise Your Next Collaboration
