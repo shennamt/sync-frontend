@@ -40,18 +40,19 @@ const Board = () => {
     getBoard()
   }, [boardId])
 
-  const onIconChange = async (newIcon) => {
-    let temp = [...boards]
-    const index = temp.findIndex(e => e.id === boardId)
-    temp[index] = { ...temp[index], icon: newIcon }
+  // REMOVED ICON
+  // const onIconChange = async (newIcon) => {
+  //   let temp = [...boards]
+  //   const index = temp.findIndex(e => e.id === boardId)
+  //   temp[index] = { ...temp[index], icon: newIcon }
 
-    if (isFavourite) {
-      let tempFavourite = [...favouriteList]
-      const favouriteIndex = tempFavourite.findIndex(e => e.id === boardId)
-      tempFavourite[favouriteIndex] = { ...tempFavourite[favouriteIndex], icon: newIcon }
-      dispatch(setFavouriteList(tempFavourite))
-    }
-  }
+  //   if (isFavourite) {
+  //     let tempFavourite = [...favouriteList]
+  //     const favouriteIndex = tempFavourite.findIndex(e => e.id === boardId)
+  //     tempFavourite[favouriteIndex] = { ...tempFavourite[favouriteIndex], icon: newIcon }
+  //     dispatch(setFavouriteList(tempFavourite))
+  //   }
+  // }
 
   const updateTitle = async (e) => {
     clearTimeout(timer)
