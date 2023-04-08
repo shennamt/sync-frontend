@@ -18,13 +18,20 @@ import { useEffect, useState } from "react";
 import boardApi from "../../api/boardApi";
 
 const Sidebar = () => {
-  const user = useSelector((state) => state.user.value); // react-redux hook for components to select and retrieve data from store
+  const user = useSelector((state) => state.user.value);
+  // react-redux hook for components to select and retrieve data from store
+
   const boards = useSelector((state) => state.board.value);
   const navigate = useNavigate();
   const dispatch = useDispatch(); // dispatch actions to update state
   const { boardId } = useParams();
   const [activeIndex, setActiveIndex] = useState(0); // arr destructuring to create 2 new vars
   const sidebarWidth = 250;
+
+  const occupation = localStorage.getItem("occupation");
+  console.log(occupation);
+
+
 
   useEffect(() => {
     // fetch data from API and update redux store state
@@ -48,7 +55,7 @@ const Sidebar = () => {
   }, [boards, boardId, navigate]);
 
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.clear();
     navigate("/login");
   };
 
@@ -126,11 +133,26 @@ const Sidebar = () => {
             }}
           >
             <Typography variant="body2" fontWeight="700" color="white">
+              {occupation + " mode"}
+            </Typography>
+          </Box>
+        </ListItem>
+        <ListItem>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between"
+            }}
+          >
+            <Typography variant="body2" fontWeight="700" color="white">
               Favourites
             </Typography>
           </Box>
         </ListItem>
-        <Box sx={{ paddingTop: "10px" }} />
+        <Box sx={{ paddingTop: "15px" }} />
+
         <ListItem>
           <Box
             sx={{
