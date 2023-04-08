@@ -27,6 +27,9 @@ const Sidebar = () => {
   const [activeIndex, setActiveIndex] = useState(0); // arr destructuring to create 2 new vars
   const sidebarWidth = 250;
 
+  const occupation = localStorage.getItem("occupation");
+  console.log(occupation);
+
   useEffect(() => {
     // fetch data from API and update redux store state
     const getBoards = async () => {
@@ -49,9 +52,7 @@ const Sidebar = () => {
   }, [boards, boardId, navigate]);
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    localStorage.removeItem("occupation");
+    localStorage.clear();
     navigate("/login");
   };
 
@@ -119,8 +120,22 @@ const Sidebar = () => {
           </Box>
         </ListItem>
         <Box sx={{ paddingTop: "10px" }} />
+        <ListItem>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between"
+            }}
+          >
+            <Typography variant="body2" fontWeight="700" color="white">
+              {occupation + " mode"}
+            </Typography>
+          </Box>
+        </ListItem>
         <FavouriteList />
-        <Box sx={{ paddingTop: "10px" }} />
+        <Box sx={{ paddingTop: "15px" }} />
         <ListItem>
           <Box
             sx={{
