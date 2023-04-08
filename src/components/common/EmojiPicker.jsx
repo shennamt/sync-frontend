@@ -29,7 +29,7 @@ const EmojiPicker = (props) => {
     <Box sx={{ position: "relative", width: "max-content" }}>
       <Button
         sx={{
-          width: "125px"
+          width: "150px"
         }}
         onClick={showPicker}
       >
