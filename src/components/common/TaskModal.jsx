@@ -85,11 +85,9 @@ const TaskModal = (props) => {
     const newTitle = e.target.value;
     timer = setTimeout(async () => {
       try {
-        console.log("task.id\n", task.id);
         await taskApi.update(boardId, task.id, { title: newTitle });
       } catch (err) {
-        console.log("err\n", err);
-        // alert(err)alert(err)
+        alert(err);
       }
     }, timeout);
 
@@ -102,15 +100,12 @@ const TaskModal = (props) => {
     clearTimeout(timer);
     const data = editor.getData();
 
-    console.log({ isModalClosed });
-
     if (!isModalClosed) {
       timer = setTimeout(async () => {
         try {
           await taskApi.update(boardId, task.id, { content: data });
         } catch (err) {
-          console.log("err\n", err);
-          // alert(err)
+          alert(err);
         }
       }, timeout);
 
@@ -125,8 +120,10 @@ const TaskModal = (props) => {
       open={task !== undefined}
       onClose={onClose}
       closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{ timeout: 500 }}
+      transitionprops={{ timeout: 500 }}
+      slots={{
+        backdrop: (props) => <Backdrop {...props} />
+      }}
     >
       <Fade in={task !== undefined}>
         <Box sx={modalStyle}>
