@@ -16,6 +16,7 @@ import assets from "../../assets/index";
 import { setBoards } from "../../redux/features/boardSlice";
 import { useEffect, useState } from "react";
 import boardApi from "../../api/boardApi";
+import FavouriteList from "./FavouriteList";
 
 const Sidebar = () => {
   const user = useSelector((state) => state.user.value); // react-redux hook for components to select and retrieve data from store
@@ -25,6 +26,9 @@ const Sidebar = () => {
   const { boardId } = useParams();
   const [activeIndex, setActiveIndex] = useState(0); // arr destructuring to create 2 new vars
   const sidebarWidth = 250;
+
+  const occupation = localStorage.getItem("occupation");
+  console.log(occupation);
 
   useEffect(() => {
     // fetch data from API and update redux store state
@@ -48,7 +52,7 @@ const Sidebar = () => {
   }, [boards, boardId, navigate]);
 
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.clear();
     navigate("/login");
   };
 
@@ -126,11 +130,12 @@ const Sidebar = () => {
             }}
           >
             <Typography variant="body2" fontWeight="700" color="white">
-              Favourites
+              {occupation + " mode"}
             </Typography>
           </Box>
         </ListItem>
-        <Box sx={{ paddingTop: "10px" }} />
+        <FavouriteList />
+        <Box sx={{ paddingTop: "15px" }} />
         <ListItem>
           <Box
             sx={{
@@ -141,7 +146,7 @@ const Sidebar = () => {
             }}
           >
             <Typography variant="body2" fontWeight="700" color="white">
-              Private
+              Kanban
             </Typography>
             <IconButton onClick={addBoard}>
               <AddBoxOutlinedIcon fontSize="small" />
@@ -182,7 +187,7 @@ const Sidebar = () => {
                             textOverflow: "ellipsis"
                           }}
                         >
-                          {item.title}
+                          {item.icon} {item.title}
                         </Typography>
                       </ListItemButton>
                     )}

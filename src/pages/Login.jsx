@@ -40,7 +40,6 @@ const Login = () => {
         username,
         password
       });
-      console.log("Signup.jsx: res\n", res);
       // const { data: { occupation } } = await authApi.getProfile(); // fetch the occupation from your backend API
       // console.log("Login.jsx: occupation\n", occupation);
       setLoading(false);
@@ -50,7 +49,6 @@ const Login = () => {
       localStorage.setItem("username", res.username);
     } catch (err) {
       const errors = err.data.errors;
-      console.log("Signup.jsx: errors\n", errors);
       errors.forEach((e) => {
         if (e.param === "username") {
           setUsernameErrText(e.msg);
