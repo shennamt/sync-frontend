@@ -16,6 +16,7 @@ import assets from "../../assets/index";
 import { setBoards } from "../../redux/features/boardSlice";
 import { useEffect, useState } from "react";
 import boardApi from "../../api/boardApi";
+import FavouriteList from "./FavouriteList";
 
 const Sidebar = () => {
   const user = useSelector((state) => state.user.value); // react-redux hook for components to select and retrieve data from store
@@ -118,20 +119,7 @@ const Sidebar = () => {
           </Box>
         </ListItem>
         <Box sx={{ paddingTop: "10px" }} />
-        <ListItem>
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}
-          >
-            <Typography variant="body2" fontWeight="700" color="white">
-              Favourites
-            </Typography>
-          </Box>
-        </ListItem>
+        <FavouriteList />
         <Box sx={{ paddingTop: "10px" }} />
         <ListItem>
           <Box
@@ -143,7 +131,7 @@ const Sidebar = () => {
             }}
           >
             <Typography variant="body2" fontWeight="700" color="white">
-              Private
+              Kanban
             </Typography>
             <IconButton onClick={addBoard}>
               <AddBoxOutlinedIcon fontSize="small" />
@@ -184,7 +172,7 @@ const Sidebar = () => {
                             textOverflow: "ellipsis"
                           }}
                         >
-                          {item.title}
+                          {item.icon} {item.title}
                         </Typography>
                       </ListItemButton>
                     )}
