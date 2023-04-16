@@ -1,17 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = { value: [] };
+const initialState = { value: [] }
 
 export const favouriteSlice = createSlice({
-  name: "favourites",
+  name: 'favourites',
   initialState,
   reducers: {
     setFavouriteList: (state, action) => {
-      state.value = action.payload;
+      state.value = action.payload
     }
   }
-});
+})
 
-export const { setFavouriteList } = favouriteSlice.actions;
+export const { setFavouriteList } = favouriteSlice.actions
 
-export default favouriteSlice.reducer;
+export default favouriteSlice.reducer

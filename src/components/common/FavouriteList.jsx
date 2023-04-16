@@ -2,7 +2,7 @@ import { Box, ListItem, ListItemButton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
-import projectApi from "../../api/projectApi";
+import boardApi from "../../api/boardApi";
 import { setFavouriteList } from "../../redux/features/favouriteSlice";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
@@ -10,37 +10,37 @@ const FavouriteList = () => {
   const dispatch = useDispatch();
   const list = useSelector((state) => state.favourites.value);
   const [activeIndex, setActiveIndex] = useState(0);
-  const { projectId } = useParams();
+  const { boardId } = useParams();
 
   useEffect(() => {
-    const getProjects = async () => {
+    const getBoards = async () => {
       try {
-        const res = await projectApi.getFavourites();
+        const res = await boardApi.getFavourites();
         dispatch(setFavouriteList(res));
       } catch (err) {
         alert(err);
       }
     };
-    getProjects();
-  }, []);
+    getBoards();
+  }, [dispatch]);
 
   useEffect(() => {
-    const index = list.findIndex((e) => e.id === projectId);
+    const index = list.findIndex((e) => e.id === boardId);
     setActiveIndex(index);
-  }, [list, projectId]);
+  }, [list, boardId]);
 
   const onDragEnd = async ({ source, destination }) => {
     const newList = [...list];
     const [removed] = newList.splice(source.index, 1);
     newList.splice(destination.index, 0, removed);
 
-    const activeItem = newList.findIndex((e) => e.id === projectId);
+    const activeItem = newList.findIndex((e) => e.id === boardId);
     setActiveIndex(activeItem);
 
     dispatch(setFavouriteList(newList));
 
     try {
-      await projectApi.updateFavouritePosition({ projects: newList });
+      await boardApi.updateFavouritePosition({ boards: newList });
     } catch (err) {
       alert(err);
     }
@@ -57,15 +57,15 @@ const FavouriteList = () => {
             justifyContent: "space-between"
           }}
         >
-          <Typography variant="body2" fontWeight="700">
+          <Typography variant="body2" fontWeight="700" color="white">
             Favourites
           </Typography>
         </Box>
       </ListItem>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable
-          key={"list-project-droppable-key"}
-          droppableId={"list-project-droppable"}
+          key={"list-board-droppable-key"}
+          droppableId={"list-board-droppable"}
         >
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
@@ -78,7 +78,7 @@ const FavouriteList = () => {
                       {...provided.draggableProps}
                       selected={index === activeIndex}
                       component={Link}
-                      to={`/projects/${item.id}`}
+                      to={`/boards/${item.id}`}
                       sx={{
                         pl: "20px",
                         cursor: snapshot.isDragging
@@ -89,6 +89,7 @@ const FavouriteList = () => {
                       <Typography
                         variant="body2"
                         fontWeight="700"
+                        color="white"
                         sx={{
                           whiteSpace: "nowrap",
                           overflow: "hidden",

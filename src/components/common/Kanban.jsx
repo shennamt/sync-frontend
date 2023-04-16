@@ -19,7 +19,7 @@ let timer;
 const timeout = 500;
 
 const Kanban = (props) => {
-  const projectId = props.projectId;
+  const boardId = props.boardId;
   const [data, setData] = useState([]);
   const [selectedTask, setSelectedTask] = useState(undefined);
 
@@ -54,7 +54,7 @@ const Kanban = (props) => {
     }
 
     try {
-      await taskApi.updatePosition(projectId, {
+      await taskApi.updatePosition(boardId, {
         resourceList: sourceTasks,
         destinationList: destinationTasks,
         resourceSectionId: sourceSectionId,
@@ -62,26 +62,29 @@ const Kanban = (props) => {
       });
       setData(data);
     } catch (err) {
-      alert(err);
+      console.log("err\n", err);
+      // alert(err)
     }
   };
 
   const createSection = async () => {
     try {
-      const section = await sectionApi.create(projectId);
+      const section = await sectionApi.create(boardId);
       setData([...data, section]);
     } catch (err) {
-      alert(err);
+      console.log("err\n", err);
+      // alert(err)
     }
   };
 
   const deleteSection = async (sectionId) => {
     try {
-      await sectionApi.delete(projectId, sectionId);
+      await sectionApi.delete(boardId, sectionId);
       const newData = [...data].filter((e) => e.id !== sectionId);
       setData(newData);
     } catch (err) {
-      alert(err);
+      console.log("err\n", err);
+      // alert(err)
     }
   };
 
@@ -94,22 +97,24 @@ const Kanban = (props) => {
     setData(newData);
     timer = setTimeout(async () => {
       try {
-        await sectionApi.update(projectId, sectionId, { title: newTitle });
+        await sectionApi.update(boardId, sectionId, { title: newTitle });
       } catch (err) {
-        alert(err);
+        console.log("err\n", err);
+        // alert(err)
       }
     }, timeout);
   };
 
   const createTask = async (sectionId) => {
     try {
-      const task = await taskApi.create(projectId, { sectionId });
+      const task = await taskApi.create(boardId, { sectionId });
       const newData = [...data];
       const index = newData.findIndex((e) => e.id === sectionId);
       newData[index].tasks.unshift(task);
       setData(newData);
     } catch (err) {
-      alert(err);
+      console.log("err\n", err);
+      // alert(err)
     }
   };
 
@@ -256,7 +261,7 @@ const Kanban = (props) => {
       </DragDropContext>
       <TaskModal
         task={selectedTask}
-        projectId={projectId}
+        boardId={boardId}
         onClose={() => setSelectedTask(undefined)}
         onUpdate={onUpdateTask}
         onDelete={onDeleteTask}

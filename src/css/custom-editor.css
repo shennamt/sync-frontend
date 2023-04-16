@@ -1,12 +1,12 @@
 .ck.ck-editor__main > .ck-editor__editable {
   background-color: transparent;
-  border: none;
+  border: 1px solid white;
   outline: none;
 }
 
-.ck.ck-editor__main > .ck-editor__editable.ck-focused {
+/* .ck.ck-editor__main > .ck-editor__editable.ck-focused {
   border: none;
-}
+} */
 
 .ck.ck-toolbar .ck.ck-toolbar__separator {
   background-color: transparent;
@@ -39,12 +39,12 @@
   background-color: black !important;
 }
 
-.ck-dropdown__panel .ck-dropdown__panel-visible {
-  border: none;
-}
-
 .ck-editor__top {
   position: sticky !important;
   top: 0 !important;
   background: #121212 !important;
+}
+
+.ck.ck-toolbar {
+  background-color: black !important;
 }

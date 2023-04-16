@@ -1,8 +1,8 @@
-import { Container, Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import authUtils from "utils/authUtils";
-import Loading from "components/CommonUse/Loading";
+import authUtils from "../../utils/authUtils";
+import Loading from "../common/Loading";
+import { Container, Box } from "@mui/material";
 import assets from "../../assets";
 
 const AuthLayout = () => {
@@ -25,6 +25,8 @@ const AuthLayout = () => {
     <Loading fullHeight />
   ) : (
     <Container component="main" maxWidth="xs">
+      {" "}
+      {/* fixed-width container component with built-in responsiveness*/}
       <Box
         sx={{
           marginTop: 8,

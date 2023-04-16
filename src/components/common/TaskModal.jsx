@@ -36,7 +36,7 @@ const timeout = 500;
 let isModalClosed = false;
 
 const TaskModal = (props) => {
-  const projectId = props.projectId;
+  const boardId = props.boardId;
   const [task, setTask] = useState(props.task);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -71,11 +71,12 @@ const TaskModal = (props) => {
 
   const deleteTask = async () => {
     try {
-      await taskApi.delete(projectId, task.id);
+      await taskApi.delete(boardId, task.id);
       props.onDelete(task);
       setTask(undefined);
     } catch (err) {
-      alert(err);
+      console.log("err\n", err);
+      // alert(err)
     }
   };
 
@@ -84,7 +85,7 @@ const TaskModal = (props) => {
     const newTitle = e.target.value;
     timer = setTimeout(async () => {
       try {
-        await taskApi.update(projectId, task.id, { title: newTitle });
+        await taskApi.update(boardId, task.id, { title: newTitle });
       } catch (err) {
         alert(err);
       }
@@ -99,12 +100,10 @@ const TaskModal = (props) => {
     clearTimeout(timer);
     const data = editor.getData();
 
-    console.log({ isModalClosed });
-
     if (!isModalClosed) {
       timer = setTimeout(async () => {
         try {
-          await taskApi.update(projectId, task.id, { content: data });
+          await taskApi.update(boardId, task.id, { content: data });
         } catch (err) {
           alert(err);
         }
@@ -121,8 +120,10 @@ const TaskModal = (props) => {
       open={task !== undefined}
       onClose={onClose}
       closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{ timeout: 500 }}
+      transitionprops={{ timeout: 500 }}
+      slots={{
+        backdrop: (props) => <Backdrop {...props} />
+      }}
     >
       <Fade in={task !== undefined}>
         <Box sx={modalStyle}>

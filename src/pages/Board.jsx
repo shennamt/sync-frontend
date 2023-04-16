@@ -1,36 +1,36 @@
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
-import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
-import { Box, IconButton, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import projectApi from "../api/projectApi";
-import EmojiPicker from "components/CommonUse/EmojiPicker";
-import Kanban from "components/CommonUse/Kanban";
-import { setProjects } from "../redux/features/projectSlice";
+import { Box, IconButton, TextField } from "@mui/material";
+import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
+import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutline";
+import boardApi from "../api/boardApi";
+import EmojiPicker from "../components/common/EmojiPicker";
+import Kanban from "../components/common/Kanban";
+import { setBoards } from "../redux/features/boardSlice";
 import { setFavouriteList } from "../redux/features/favouriteSlice";
 
 let timer;
 const timeout = 500;
 
-const Project = () => {
+const Board = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { projectId } = useParams();
+  const { boardId } = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [sections, setSections] = useState([]);
   const [isFavourite, setIsFavourite] = useState(false);
   const [icon, setIcon] = useState("");
 
-  const projects = useSelector((state) => state.projects.value);
+  const boards = useSelector((state) => state.board.value);
   const favouriteList = useSelector((state) => state.favourites.value);
 
   useEffect(() => {
-    const getProject = async () => {
+    const getBoard = async () => {
       try {
-        const res = await projectApi.getOne(projectId);
+        const res = await boardApi.getOne(boardId);
         setTitle(res.title);
         setDescription(res.description);
         setSections(res.sections);
@@ -40,17 +40,20 @@ const Project = () => {
         alert(err);
       }
     };
-    getProject();
-  }, [projectId]);
+    getBoard();
+  }, [boardId]);
 
   const onIconChange = async (newIcon) => {
-    let temp = [...projects];
-    const index = temp.findIndex((e) => e.id === projectId);
+    let temp = [...boards];
+    const index = temp.findIndex((e) => e.id === boardId);
+    // replaces the object with a new object with the same properties
+    // as the original object, but with an updated `icon` property set to the
+    // value of `newIcon`
     temp[index] = { ...temp[index], icon: newIcon };
 
     if (isFavourite) {
       let tempFavourite = [...favouriteList];
-      const favouriteIndex = tempFavourite.findIndex((e) => e.id === projectId);
+      const favouriteIndex = tempFavourite.findIndex((e) => e.id === boardId);
       tempFavourite[favouriteIndex] = {
         ...tempFavourite[favouriteIndex],
         icon: newIcon
@@ -59,9 +62,9 @@ const Project = () => {
     }
 
     setIcon(newIcon);
-    dispatch(setProjects(temp));
+    dispatch(setBoards(temp));
     try {
-      await projectApi.update(projectId, { icon: newIcon });
+      await boardApi.update(boardId, { icon: newIcon });
     } catch (err) {
       alert(err);
     }
@@ -72,13 +75,13 @@ const Project = () => {
     const newTitle = e.target.value;
     setTitle(newTitle);
 
-    let temp = [...projects];
-    const index = temp.findIndex((e) => e.id === projectId);
+    let temp = [...boards];
+    const index = temp.findIndex((e) => e.id === boardId);
     temp[index] = { ...temp[index], title: newTitle };
 
     if (isFavourite) {
       let tempFavourite = [...favouriteList];
-      const favouriteIndex = tempFavourite.findIndex((e) => e.id === projectId);
+      const favouriteIndex = tempFavourite.findIndex((e) => e.id === boardId);
       tempFavourite[favouriteIndex] = {
         ...tempFavourite[favouriteIndex],
         title: newTitle
@@ -86,11 +89,11 @@ const Project = () => {
       dispatch(setFavouriteList(tempFavourite));
     }
 
-    dispatch(setProjects(temp));
+    dispatch(setBoards(temp));
 
     timer = setTimeout(async () => {
       try {
-        await projectApi.update(projectId, { title: newTitle });
+        await boardApi.update(boardId, { title: newTitle });
       } catch (err) {
         alert(err);
       }
@@ -103,7 +106,7 @@ const Project = () => {
     setDescription(newDescription);
     timer = setTimeout(async () => {
       try {
-        await projectApi.update(projectId, { description: newDescription });
+        await boardApi.update(boardId, { description: newDescription });
       } catch (err) {
         alert(err);
       }
@@ -112,14 +115,12 @@ const Project = () => {
 
   const addFavourite = async () => {
     try {
-      const project = await projectApi.update(projectId, {
-        favourite: !isFavourite
-      });
+      const board = await boardApi.update(boardId, { favourite: !isFavourite });
       let newFavouriteList = [...favouriteList];
       if (isFavourite) {
-        newFavouriteList = newFavouriteList.filter((e) => e.id !== projectId);
+        newFavouriteList = newFavouriteList.filter((e) => e.id !== boardId);
       } else {
-        newFavouriteList.unshift(project);
+        newFavouriteList.unshift(board);
       }
       dispatch(setFavouriteList(newFavouriteList));
       setIsFavourite(!isFavourite);
@@ -128,23 +129,21 @@ const Project = () => {
     }
   };
 
-  const deleteProject = async () => {
+  const deleteBoard = async () => {
     try {
-      await projectApi.delete(projectId);
+      await boardApi.delete(boardId);
       if (isFavourite) {
-        const newFavouriteList = favouriteList.filter(
-          (e) => e.id !== projectId
-        );
+        const newFavouriteList = favouriteList.filter((e) => e.id !== boardId);
         dispatch(setFavouriteList(newFavouriteList));
       }
 
-      const newList = projects.filter((e) => e.id !== projectId);
+      const newList = boards.filter((e) => e.id !== boardId);
       if (newList.length === 0) {
-        navigate("/projects");
+        navigate("/boards");
       } else {
-        navigate(`/projects/${newList[0].id}`);
+        navigate(`/boards/${newList[0].id}`);
       }
-      dispatch(setProjects(newList));
+      dispatch(setBoards(newList));
     } catch (err) {
       alert(err);
     }
@@ -155,19 +154,19 @@ const Project = () => {
       <Box
         sx={{
           display: "flex",
-          alignItems: "center",
+          alignItem: "center",
           justifyContent: "space-between",
           width: "100%"
         }}
       >
-        <IconButton variant="outlined" onClick={addFavourite}>
+        <IconButton variant="outline" onClick={addFavourite}>
           {isFavourite ? (
             <StarOutlinedIcon color="warning" />
           ) : (
             <StarBorderOutlinedIcon />
           )}
         </IconButton>
-        <IconButton variant="outlined" color="error" onClick={deleteProject}>
+        <IconButton variant="outlined" color="error" onClick={deleteBoard}>
           <DeleteOutlinedIcon />
         </IconButton>
       </Box>
@@ -183,7 +182,7 @@ const Project = () => {
             fullWidth
             sx={{
               "& .MuiOutlinedInput-input": { padding: 0 },
-              "& .MuiOutlinedInput-notchedOutline": { border: "unset " },
+              "& .MuiOutlinedInput-notchedOutlined": { border: "unset" },
               "& .MuiOutlinedInput-root": {
                 fontSize: "2rem",
                 fontWeight: "700"
@@ -199,18 +198,20 @@ const Project = () => {
             fullWidth
             sx={{
               "& .MuiOutlinedInput-input": { padding: 0 },
-              "& .MuiOutlinedInput-notchedOutline": { border: "unset " },
-              "& .MuiOutlinedInput-root": { fontSize: "0.8rem" }
+              "& .MuiOutlinedInput-notchedOutlined": { border: "unset" },
+              "& .MuiOutlinedInput-root": {
+                fontSize: "0.8em"
+              }
             }}
           />
         </Box>
         <Box>
           {/* Kanban board */}
-          <Kanban data={sections} projectId={projectId} />
+          <Kanban data={sections} boardId={boardId} />
         </Box>
       </Box>
     </>
   );
 };
 
-export default Project;
+export default Board;
